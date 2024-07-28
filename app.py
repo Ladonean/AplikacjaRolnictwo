@@ -114,7 +114,8 @@ def main():
                 popup=address,
             ).add_to(m)
             
-            df_baza = wczytaj_stacje("https://github.com/Ladonean/FigDetect/blob/main/Stacje.csv")
+            df_baza = wczytaj_stacje("https://github.com/Ladonean/Nauka/blob/main/Stacje.csv")
+            
             marker_cluster = MarkerCluster().add_to(m)
             for idx, row in df.iterrows():
                 folium.Marker(location=[row['Y'], row['X']], popup=row['Stacja']).add_to(marker_cluster)
