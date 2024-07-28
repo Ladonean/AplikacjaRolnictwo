@@ -75,7 +75,7 @@ def wczytaj_stacje(url):
     
     return df
     
-df_baza = wczytaj_stacje("Stacje.csv")
+df_baza = wczytaj_stacje("https://github.com/Ladonean/Nauka/blob/main/Stacje.csv")
 
 def main():
     with st.sidebar:
