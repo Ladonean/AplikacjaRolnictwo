@@ -10,6 +10,7 @@ from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut
 from geopy.geocoders import Photon
 import requests
+from io import StringIO
 
 st.set_page_config(
     page_title="App",
