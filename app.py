@@ -77,7 +77,5 @@ def main():
 # Run the app
 if __name__ == "__main__":
     main()
-    m = folium.Map(location = [53, 18], zoom_start = 5)
 
-    st_data = st_folium (m, width = 800)
 
