@@ -1,6 +1,6 @@
 import streamlit as st
-import streamlit_folium as st_folium
 import folium
+from streamlit_folium import st_folium
 import pandas as pd
 from datetime import datetime, timedelta
 
@@ -72,7 +72,7 @@ def main():
                 initial_date = st.date_input("initial", value=delay, label_visibility="collapsed")
     
 
-    m = folium.Map(location = [53, 18], zoom_start = 5)
+
 
 
 
@@ -80,4 +80,5 @@ def main():
 if __name__ == "__main__":
     main()
 
-
+m = folium.Map(location = [54, 18.6], zoom_start = 10)
+st_folium (m, width = 800)
