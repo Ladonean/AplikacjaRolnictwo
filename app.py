@@ -113,7 +113,7 @@ def main():
                 location=coords,
                 popup=address,
             ).add_to(m)
-            path_stacje = 'https://raw.githubusercontent.com/Nauka/FigDetect/main/Stacje.csv'
+            path_stacje = "https://github.com/Ladonean/Nauka/blob/main/Stacje.csv"
             
             df_baza = wczytaj_stacje(path_stacje)
             
