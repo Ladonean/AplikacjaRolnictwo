@@ -1,18 +1,28 @@
 import streamlit as st
 import pandas as pd
-import pandas_profiling
-from streamlit_pandas_profiling import st_profile_report
-def set_background(png_file):
-    bin_str = get_base64(png_file)
+
+import base64
+
+@st.cache(allow_output_mutation=True)
+def get_base64_of_bin_file(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+def set_png_as_page_bg(png_file):
+    bin_str = get_base64_of_bin_file(png_file)
     page_bg_img = '''
     <style>
-    .stApp {
-    background-image: url("data:image/jfif;base64,%s");
+    body {
+    background-image: url("data:image/png;base64,%s");
     background-size: cover;
     }
     </style>
     ''' % bin_str
+    
     st.markdown(page_bg_img, unsafe_allow_html=True)
+    return
 
-st.header('`streamlit_pandas_profiling`')
-set_background('https://github.com/Ladonean/Nauka/blob/main/OIP.jfif')
+set_png_as_page_bg('https://github.com/Ladonean/Nauka/blob/main/nature-fcp.png')
+
+
