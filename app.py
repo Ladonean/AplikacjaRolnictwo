@@ -80,7 +80,7 @@ def main():
     ).tolist()
     
     m = folium.Map(location = [54, 18.6], zoom_start = 10, tiles="Esri.WorldImagery")
-    HeatMap(data).add_to(m)
+
     st_folium (m, width = 800, height = 800)
 
 
