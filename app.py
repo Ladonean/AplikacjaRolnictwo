@@ -62,13 +62,10 @@ def geocode_address(address):
     except GeocoderTimedOut:
         return None
         
-def wczytaj_stacje(url):
-    response = requests.get(url)
-    if response.status_code != 200:
-        st.error("Nie udało się pobrać danych stacji z podanego URL: " + url)
-        return None
-    data = response.content.decode('windows-1250')
-    df = pd.read_csv(StringIO(data), delimiter=',', header=None)
+def wczytaj_stacje(data):
+    data = data
+    data1 = data.content.decode('windows-1250')
+    df = pd.read_csv(StringIO(data1), delimiter=',', header=None)
     
     df.columns = ['X', 'Y', 'Stacja']
     df['X'] = df['X'].astype(float)
