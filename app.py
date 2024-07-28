@@ -67,8 +67,8 @@ def wczytaj_stacje(url):
     if response.status_code != 200:
         st.error("Nie udało się pobrać danych stacji z podanego URL: " + url)
         return None
-    data = response.content.decode()
-    df = pd.read_csv(StringIO(data), delimiter=',')
+    data = response.content.decode('windows-1250')
+    df = pd.read_csv(StringIO(data), delimiter=',', header=None)
     
     df.columns = ['X', 'Y', 'Stacja']
     df['X'] = df['X'].astype(float)
@@ -113,8 +113,8 @@ def main():
                 location=coords,
                 popup=address,
             ).add_to(m)
-            
-            df_baza = wczytaj_stacje("https://github.com/Ladonean/Nauka/blob/main/Stacje.csv")
+            path_stacje = 'https://raw.githubusercontent.com/Ladonean/FigDetect/main/Stacje.csv'
+            df_baza = wczytaj_stacje(path_stacje)
             
             marker_cluster = MarkerCluster().add_to(m)
             for idx, row in df.iterrows():
