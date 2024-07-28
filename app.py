@@ -48,6 +48,30 @@ def main():
         st.title("App opady")
         st.markdown("Aplikacja sluzaca do sprawdzania opadow i wskaznika ndvi na obszarze Polski")
 
+     with st.container():
+
+                col1, col2 = st.columns(2)
+                
+                # Creating a 2 days delay for the date_input placeholder to be sure there are satellite images in the dataset on app start
+                today = datetime.today()
+                delay = today - timedelta(days=2)
+
+                # Date input widgets
+                col1.success("Data P 📅")
+                initial_date = col1.date_input("initial", value=delay, label_visibility="collapsed")
+
+                col2.success("Data K 📅")
+                updated_date = col2.date_input("updated", value=delay, label_visibility="collapsed")
+
+                # Setting up the time range variable for an image collection
+                time_range = 7
+                # Process initial date
+                str_initial_start_date, str_initial_end_date = date_input_proc(initial_date, time_range)
+
+                # Process updated date
+                str_updated_start_date, str_updated_end_date = date_input_proc(updated_date, time_range)
+
+
 # Run the app
 if __name__ == "__main__":
     main()
