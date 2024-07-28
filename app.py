@@ -2,12 +2,14 @@ import streamlit as st
 import folium
 from streamlit_folium import st_folium
 from folium.plugins import HeatMap
+from streamlit_folium import folium_static
 import pandas as pd
 from datetime import datetime, timedelta
 import numpy as np
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut
 from geopy.geocoders import Photon
+
 
 st.set_page_config(
     page_title="App",
@@ -58,7 +60,22 @@ def geocode_address(address):
             return None
     except GeocoderTimedOut:
         return None
-
+        
+def wczytaj_stacje(url):
+    response = requests.get(url)
+    if response.status_code != 200:
+        st.error("Nie udało się pobrać danych stacji z podanego URL: " + url)
+        return None
+    data = response.content.decode('windows-1250')
+    df = pd.read_csv(StringIO(data), delimiter=',', header=None)
+    
+    df.columns = ['X', 'Y', 'Stacja']
+    df['X'] = df['X'].astype(float)
+    df['Y'] = df['Y'].astype(float)
+    
+    return df
+    
+df_baza = wczytaj_stacje("Stacje.csv")
 
 def main():
     with st.sidebar:
@@ -96,6 +113,12 @@ def main():
                 location=coords,
                 popup=address,
             ).add_to(m)
+            
+            marker_cluster = MarkerCluster().add_to(m)
+            for idx, row in df.iterrows():
+                folium.Marker(location=[row['Y'], row['X']], popup=row['Stacja']).add_to(marker_cluster)
+            folium.LayerControl().add_to(m)
+            
             st_folium (m, width=1600)
         else:
             st.write("Wrong")
