@@ -1,18 +1,14 @@
 import streamlit as st
 import pandas as pd
-import openai
 
 
+def load_css(file_name):
+    with open (file_name) as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
+load('style.css')
+        
 st.header('st.write')
-st.markdown(
-    """
-    <style>
-    .reportview-container {
-        background: url("https://github.com/Ladonean/Nauka/blob/main/nature-fcp.png")
-    }
-    """,
-    unsafe_allow_html=True
-)
 
 # Example 1
 
