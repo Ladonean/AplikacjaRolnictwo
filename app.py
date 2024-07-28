@@ -12,14 +12,7 @@ from geopy.geocoders import Photon
 import requests
 from io import StringIO
 
-st.set_page_config(
-    page_title="App",
-    layout="wide",
-    initial_sidebar_state="expanded",
-    menu_items={
-    'About': "https://github.com/Ladonean/Nauka/tree/main"
-    }
-)
+
 
 
 
@@ -47,6 +40,7 @@ def main():
     st.write("lol")
     df = wczytaj_stacje(path_stacje1)
     st.dataframe(df)
+    
     with st.container():
         address = st.text_input("Wpisz adres:", "Czaple, Kartuzy")
         coords = geocode_address(address)
