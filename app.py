@@ -62,8 +62,12 @@ def geocode_address(address):
     except GeocoderTimedOut:
         return None
         
-def wczytaj_stacje(data):
-
+def wczytaj_stacje(url):
+    response = requests.get(url)
+    if response.status_code != 200:
+        st.error("Nie udało się pobrać danych stacji z podanego URL: " + url)
+        return None
+    data = response.content.decode('windows-1250')
     df = pd.read_csv(StringIO(data), delimiter=',', header=None)
     
     df.columns = ['X', 'Y', 'Stacja']
@@ -109,20 +113,21 @@ def main():
                 location=coords,
                 popup=address,
             ).add_to(m)
-            path_stacje = "Stacje.csv"
+            #path_stacje = "Stacje.csv"
             
-            df_baza = wczytaj_stacje(path_stacje)
+            #df_baza = wczytaj_stacje(path_stacje)
             
-            marker_cluster = MarkerCluster().add_to(m)
-            for idx, row in df.iterrows():
-                folium.Marker(location=[row['Y'], row['X']], popup=row['Stacja']).add_to(marker_cluster)
-            folium.LayerControl().add_to(m)
+           # marker_cluster = MarkerCluster().add_to(m)
+            #for idx, row in df.iterrows():
+               # folium.Marker(location=[row['Y'], row['X']], popup=row['Stacja']).add_to(marker_cluster)
+            #folium.LayerControl().add_to(m)
             
             st_folium (m, width=1600)
         else:
             st.write("Wrong")
 
-
+df = wczytaj_csv(path_csv1)
+st.dataframe(df)
 # Run the app
 if __name__ == "__main__":
     main()
