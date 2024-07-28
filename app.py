@@ -125,7 +125,7 @@ def main():
             st_folium (m, width=1600)
         else:
             st.write("Wrong")
-
+    st.write("lol")
     df = wczytaj_csv(path_csv1)
     st.dataframe(df)
 # Run the app
