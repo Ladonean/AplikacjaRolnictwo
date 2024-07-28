@@ -93,7 +93,7 @@ def main():
                 location=coords,
                 popup=address,
             ).add_to(m)
-            st_folium(m, width=1600)
+            st_folium(m, width=1600, heigth =1200)
         else:
             st.write("Nie udało się zlokalizować adresu.")
 
