@@ -1,6 +1,7 @@
 import streamlit as st
 import folium
 from streamlit_folium import st_folium
+from folium.plugins import HeatMap
 import pandas as pd
 from datetime import datetime, timedelta
 
@@ -72,8 +73,13 @@ def main():
                 initial_date = st.date_input("initial", value=delay, label_visibility="collapsed")
     
 
-    m = folium.Map(location = [54, 18.6], zoom_start = 10, tiles="Esri.WorldImagery")
 
+    data = (
+    np.random.normal(size=(100, 3)) * np.array([[1, 1, 1]]) + np.array([[54, 18.6, 1]])
+    ).tolist()
+    
+    m = folium.Map(location = [54, 18.6], zoom_start = 10, tiles="Esri.WorldImagery")
+    HeatMap(data).add_to(m)
     st_folium (m, width = 800, height = 800)
 
 
