@@ -90,3 +90,4 @@ def main():
 if __name__ == "__main__":
     main()
 
+HeatMap(data).add_to(m)
