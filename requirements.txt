@@ -4,3 +4,4 @@ streamlit_pandas_profiling
 pandas_profiling
 altair
 numpy
+base64
