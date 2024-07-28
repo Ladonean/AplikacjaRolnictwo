@@ -126,8 +126,9 @@ def main():
         else:
             st.write("Wrong")
     st.write("lol")
-    df = wczytaj_csv(path_csv1)
-    st.dataframe(df)
+    with st.container():
+        df = wczytaj_csv(path_csv1)
+        st.dataframe(df)
 # Run the app
 if __name__ == "__main__":
     main()
