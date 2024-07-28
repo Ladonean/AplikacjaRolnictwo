@@ -64,7 +64,6 @@ def geocode_address(address):
         return None
         
 def load_data(url):
-    try:
         df = pd.read_csv(url)
         df.columns = ['X','Y','Stacja']
 
