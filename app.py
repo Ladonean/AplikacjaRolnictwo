@@ -88,7 +88,7 @@ def main():
                 initial_date = st.date_input("initial", value=delay, label_visibility="collapsed")
     
     with st.container():
-        address = st.text_input("Wpisz adres:", "Gdansk, Polska")
+        address = st.text_input("Wpisz adres:", "Dobieszewo, Polska")
         coords = geocode_address(address)
         if coords:
             m = folium.Map(location = coords, zoom_start = 10, tiles="Esri.WorldImagery")
