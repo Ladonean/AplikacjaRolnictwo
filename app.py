@@ -96,7 +96,7 @@ def main():
                 location=coords,
                 popup=address,
             ).add_to(m)
-            st_folium (m)
+            st_folium (m, width=1600)
         else:
             st.write("Wrong")
 
