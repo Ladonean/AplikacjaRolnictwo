@@ -57,7 +57,7 @@ def geocode_address(address):
 
 # Funkcja do ładowania danych
 def load_data(url):
-    df = pd.read_csv(url)
+    df = pd.read_csv(url, encoding='windows-1250')
     df.columns = ['X', 'Y', 'Stacja']
     return df
 
@@ -105,4 +105,3 @@ def main():
 # Uruchomienie aplikacji
 if __name__ == "__main__":
     main()
-
