@@ -94,7 +94,7 @@ def main():
                 location=coords,
                 popup=address,
             ).add_to(m)
-            st_folium (m, height = 800
+            st_folium (m, height = 800)
         else:
             st.write("Wrong")
 
