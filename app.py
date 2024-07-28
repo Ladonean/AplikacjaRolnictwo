@@ -48,7 +48,8 @@ def main():
         st.title("App opady")
         st.markdown("Aplikacja sluzaca do sprawdzania opadow i wskaznika ndvi na obszarze Polski")
 
-     with st.container():
+        
+    with st.container():
 
                 col1, col2 = st.columns(2)
                 
