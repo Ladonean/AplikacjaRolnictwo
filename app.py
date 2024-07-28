@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import numpy as np
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut
+from geopy.geocoders import Photon
 
 st.set_page_config(
     page_title="App",
@@ -48,7 +49,7 @@ def date_input_proc(input_date, time_range):
     return str_start_date, str_end_date
     
 def geocode_address(address):
-    geolocator = Nominatim(user_agent="myGeocoder")
+    geolocator = Photon(user_agent="measurements")
     try:
         location = geolocator.geocode(address)
         if location:
