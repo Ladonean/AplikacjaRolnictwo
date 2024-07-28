@@ -36,12 +36,12 @@ def wczytaj_stacje(url):
 
 
 
-    path_stacje1 = 'https://raw.githubusercontent.com/Ladonean/FigDetect/main/Stacje.csv'
-    st.write("lol")
-    df = wczytaj_stacje(path_stacje1)
-    st.dataframe(df)
+path_stacje1 = 'https://raw.githubusercontent.com/Ladonean/FigDetect/main/Stacje.csv'
+st.write("lol")
+df = wczytaj_stacje(path_stacje1)
+st.dataframe(df)
     
-    with st.container():
+with st.container():
         address = st.text_input("Wpisz adres:", "Czaple, Kartuzy")
         coords = geocode_address(address)
         if coords:
