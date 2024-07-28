@@ -33,6 +33,15 @@ page_bg_img= """
 # Dodaj tło z lokalnego pliku
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
+def date_input_proc(input_date, time_range):
+    end_date = input_date
+    start_date = input_date - timedelta(days=time_range)
+    
+    str_start_date = start_date.strftime('%Y-%m-%d')
+    str_end_date = end_date.strftime('%Y-%m-%d')
+    return str_start_date, str_end_date
+
+
 def main():
     with st.sidebar:
         st.title("App")
