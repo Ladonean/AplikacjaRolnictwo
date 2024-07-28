@@ -82,6 +82,7 @@ def main():
     m = folium.Map(location = [54, 18.6], zoom_start = 10, tiles="Esri.WorldImagery")
 
     st_folium (m, width = 800, height = 800)
+    HeatMap(data).add_to(m)
 
 
 
@@ -90,4 +91,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-HeatMap(data).add_to(m)
