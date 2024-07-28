@@ -61,14 +61,12 @@ def main():
         
     with st.container():
 
-                col1,col2 = st.columns(2)
-                
                 # Creating a 2 days delay for the date_input placeholder to be sure there are satellite images in the dataset on app start
                 today = datetime.today()
                 delay = today - timedelta(days=5)
 
                 # Date input widgets
-                col1.success("Data P 📅")
+                st.success("Data P 📅")
                 initial_date = col1.date_input("initial", value=delay, label_visibility="collapsed")
 
 
