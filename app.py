@@ -13,6 +13,7 @@ def add_bg_from_local(image_file):
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
+            opacity: 0.5;
         }}
         </style>
         """,
