@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit_folium as st_folium
 import pandas as pd
 from datetime import datetime, timedelta
 
@@ -68,8 +69,8 @@ def main():
                 # Date input widgets
                 st.success("Data P 📅")
                 initial_date = st.date_input("initial", value=delay, label_visibility="collapsed")
-
-
+    
+    with st_folium():
 
 
 
