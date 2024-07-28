@@ -47,7 +47,7 @@ def date_input_proc(input_date, time_range):
     str_end_date = end_date.strftime('%Y-%m-%d')
     return str_start_date, str_end_date
     
-def geocode_adress(address):
+def geocode_address(address):
     geolocator = Nominatim(user_agent="myGeocoder")
     try:
         location = geolocator.geocode(address)
