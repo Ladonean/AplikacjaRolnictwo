@@ -30,9 +30,9 @@ page_bg_img = """
         background-color: #e6ffe6;
         }
         .map-container {
-            width: 800px; /* Ustaw szerokość kontenera mapy */
-            height: 800px; /* Ustaw wysokość kontenera mapy */
-            margin: 0 auto; /* Wycentruj kontener mapy */
+            width: 200px; /* Ustaw szerokość kontenera mapy */
+            height: 200px; /* Ustaw wysokość kontenera mapy */
+
         }
         </style>
         """
