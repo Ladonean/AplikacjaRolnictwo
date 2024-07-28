@@ -42,6 +42,7 @@ page_bg_img= """
 
 # Dodaj tło z lokalnego pliku
 st.markdown(page_bg_img, unsafe_allow_html=True)
+path_stacje1 = 'https://raw.githubusercontent.com/Ladonean/FigDetect/main/Stacje.csv'
 
 def date_input_proc(input_date, time_range):
     end_date = input_date
@@ -113,21 +114,21 @@ def main():
                 location=coords,
                 popup=address,
             ).add_to(m)
-            #path_stacje = "Stacje.csv"
+            path_stacje = "Stacje.csv"
             
-            #df_baza = wczytaj_stacje(path_stacje)
+            df_baza = wczytaj_stacje(path_stacje)
             
-           # marker_cluster = MarkerCluster().add_to(m)
-            #for idx, row in df.iterrows():
-               # folium.Marker(location=[row['Y'], row['X']], popup=row['Stacja']).add_to(marker_cluster)
-            #folium.LayerControl().add_to(m)
+            marker_cluster = MarkerCluster().add_to(m)
+            for idx, row in df.iterrows():
+                folium.Marker(location=[row['Y'], row['X']], popup=row['Stacja']).add_to(marker_cluster)
+            
+            folium.LayerControl().add_to(m)
             
             st_folium (m, width=1600)
         else:
             st.write("Wrong")
     st.write("lol")
     with st.container():
-        df = wczytaj_csv(path_csv1)
         st.dataframe(df)
 # Run the app
 if __name__ == "__main__":
