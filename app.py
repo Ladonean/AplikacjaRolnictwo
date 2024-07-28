@@ -62,6 +62,15 @@ def geocode_address(address):
             return None
     except GeocoderTimedOut:
         return None
+
+def load_original_data():
+    url = 'https://raw.githubusercontent.com/Ladonean/Nauka/blob/main/Stacje.csv'
+    response = requests.get(url)
+    if response.status_code == 200:
+        return pd.read_csv(StringIO(response.text))
+    else:
+        st.error("Failed to load data from GitHub.")
+        return None
         
 
     
@@ -109,11 +118,11 @@ def main():
             
             #folium.LayerControl().add_to(m)
             
-            #st_folium (m, width=1600)
+            st_folium (m, width=1600)
         #else:
             #st.write("Wrong")
     with st.container():
-        df = pd.DataFrame(np.random.randn(50, 20), columns=("col %d" % i for i in range(20)))
+        df = load_original_data()
 
         st.dataframe(df)  # Same as st.write(df)
         
