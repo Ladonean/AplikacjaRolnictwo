@@ -76,11 +76,9 @@ def main():
 
 
 
-data = (
-    np.random.normal(size=(100, 3)) * np.array([[1, 1, 1]]) + np.array([[48, 5, 1]])
-).tolist()    
+  
 m = folium.Map(location = [54, 18.6], zoom_start = 10, tiles="Esri.WorldImagery")
-HeatMap(data).add_to(m)
+
 st_folium (m, width = 800, height = 800)
 
 
