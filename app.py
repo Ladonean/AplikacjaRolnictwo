@@ -1,28 +1,26 @@
 import streamlit as st
-import base64
 import pandas as pd
 
 # Funkcja do załadowania obrazu tła
-def add_bg_from_local(image_file):
-    with open(image_file, "rb") as image_file:
-        encoded_string = base64.b64encode(image_file.read())
-    st.markdown(
-        f"""
+page_bg_img= """
         <style>
-        .stApp {{
-            background-image: url(data:image/{"png" or "jpg"};base64,{encoded_string.decode()});
+        [data-testid="stAppViewContainer"]{
+            background-image: url("https://github.com/Ladonean/Nauka/blob/main/nature-fcp.png");
             background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+        }
 
-        }}
+        [data-testid=""stHeader"]{
+            background-color: rgba(0, 0, 0, 0);
+        }
+
+        [data-testid="stToolbar"] {
+        }
         </style>
-        """,
-        unsafe_allow_html=True
-    )
+        """
+
 
 # Dodaj tło z lokalnego pliku
-add_bg_from_local('R.jpg')
+st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Reszta kodu Streamlit
 st.title("Moja aplikacja Streamlit z tłem")
