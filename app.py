@@ -59,7 +59,6 @@ def geocode_adress(address):
         return None
 
 
-
 def main():
     with st.sidebar:
         st.title("App")
@@ -88,7 +87,7 @@ def main():
                 initial_date = st.date_input("initial", value=delay, label_visibility="collapsed")
     
     with st.container():
-        address = st.text_input("Wpisz adres:", "Gdansk, Polska")
+        address = st.text_input("Wpisz adres:", "Gdansk")
         coords = geocode_address(address)
         if coords:
             m = folium.Map(location = coords, zoom_start = 10, tiles="Esri.WorldImagery")
