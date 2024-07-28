@@ -5,6 +5,8 @@ from folium.plugins import HeatMap
 import pandas as pd
 from datetime import datetime, timedelta
 import numpy as np
+from geopy.geocoders import Nominatim
+from geopy.exc import GeocoderTimedOut
 
 st.set_page_config(
     page_title="App",
