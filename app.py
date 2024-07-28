@@ -4,6 +4,9 @@ import pandas as pd
 # Funkcja do załadowania obrazu tła
 page_bg_img= """
         <style>
+        .stApp {
+                background-color: #e6ffe6;
+                }
         </style>
         """
 
