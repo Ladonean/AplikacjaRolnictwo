@@ -14,7 +14,8 @@ page_bg_img= """
 # Dodaj tło z lokalnego pliku
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
-st.sidebar.button()
+with st.sidebar:
+    st.button
 
 # Reszta kodu Streamlit
 st.title("App")
