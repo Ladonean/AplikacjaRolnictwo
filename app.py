@@ -1,7 +1,6 @@
 import streamlit as st
 import folium
 from streamlit_folium import st_folium
-from folium.plugins import HeatMap
 import pandas as pd
 from datetime import datetime, timedelta
 from geopy.geocoders import Photon
@@ -99,10 +98,11 @@ def main():
             st.write("Nie udało się zlokalizować adresu.")
 
     with st.container():
-        csv_url = "https://raw.githubusercontent.com/Ladonean/Nauka/main/Stacje.csv"
+        csv_url = "https://raw.githubusercontent.com/Ladonean/Nauka/main/Stacje.csv?raw=true"
         data = load_data(csv_url)
         st.dataframe(data)
 
 # Uruchomienie aplikacji
 if __name__ == "__main__":
     main()
+
