@@ -21,12 +21,31 @@ page_bg_img= """
         .st-emotion-cache-z5fcl4 {
         padding-block: 0;
         }
-        /*Sidebar : Navigation list*/
-        div.element-container:nth-child(4) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(1) {
+    /*Sidebar : Navigation list*/
+    div.element-container:nth-child(4) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(1) {
         margin: 0;
         padding: 0;
         list-style: none;
-        }
+    }
+    div.element-container:nth-child(4) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(1) > li {
+        padding: 0;
+        margin: 0;
+        padding: 0;
+        font-weight: 600;
+    }
+    div.element-container:nth-child(4) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(1) > li > a {
+        text-decoration: none;
+        transition: 0.2s ease-in-out;
+        padding-inline: 10px;
+    }
+    
+    div.element-container:nth-child(4) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(1) > li > a:hover {
+        color: rgb(46, 206, 255);
+        transition: 0.2s ease-in-out;
+        background: #131720;
+        border-radius: 4px;
+    }
+
         .stApp {
         background-color: #e6ffe6;
         }
