@@ -72,6 +72,8 @@ def main():
                 initial_date = st.date_input("initial", value=delay, label_visibility="collapsed")
     
 
+    m = folium.Map(location = [54, 18.6], zoom_start = 10)
+    st_folium (m, width = 800)
 
 
 
@@ -80,5 +82,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-m = folium.Map(location = [54, 18.6], zoom_start = 10)
-st_folium (m, width = 800)
