@@ -83,14 +83,15 @@ def main():
         st.title("Aplikacja Opady")
         st.markdown("Aplikacja służąca do sprawdzania opadów i wskaźnika NDVI na obszarze Polski")
 
-    with st.container():
+    
+    with c1:
+        col1, col2 = st.columns(2)
         today = datetime.today()
         delay = today - timedelta(days=5)
-        st.success("Data 📅")
-        initial_date = st.date_input("Data początkowa", value=delay, label_visibility="collapsed")
+        st.success("Data ??")
+        col1.date_input("Data początkowa", value=delay, label_visibility="collapsed")
 
-    with st.container():
-        address = st.text_input("Wpisz adres:", "Czaple, Kartuzy")
+        address = col2.text_input("Wpisz adres:", "Czaple, Kartuzy")
         coords = geocode_address(address)
         if coords:
 
