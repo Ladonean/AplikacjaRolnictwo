@@ -40,22 +40,5 @@ df = 'Stacje.csv'
 
 st.dataframe(df)
     
-with st.container():
-        address = st.text_input("Wpisz adres:", "Czaple, Kartuzy")
-        coords = geocode_address(address)
-        if coords:
-            m = folium.Map(location = [53,18], zoom_start = 10, tiles="Esri.WorldImagery")
-            folium.Marker(
-                location=[53,18]
-            ).add_to(m)
-
-            
-            marker_cluster = MarkerCluster().add_to(m)
-            for idx, row in df.iterrows():
-                folium.Marker(location=[row['Y'], row['X']], popup=row['Stacja']).add_to(marker_cluster)
-            
-            folium.LayerControl().add_to(m)
-            
-            st_folium (m, width=1600)
 
 
