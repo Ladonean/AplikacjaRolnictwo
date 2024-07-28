@@ -31,8 +31,6 @@ page_bg_img = """
         }
         .map-container {
             display: flex;
-            justify-content: center;
-            align-items: center;
             height: 800px;
         }
         .map {
