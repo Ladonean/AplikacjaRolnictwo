@@ -67,7 +67,7 @@ def wczytaj_stacje(url):
     if response.status_code != 200:
         st.error("Nie udało się pobrać danych stacji z podanego URL: " + url)
         return None
-    data = response.content.decode('windows-1250')
+    data = response.content.decode()
     df = pd.read_csv(StringIO(data), delimiter=',', header=None)
     
     df.columns = ['X', 'Y', 'Stacja']
