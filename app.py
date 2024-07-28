@@ -62,17 +62,7 @@ def geocode_address(address):
             return None
     except GeocoderTimedOut:
         return None
-
-def load_original_data():
-    url = 'https://raw.githubusercontent.com/Ladonean/Nauka/blob/main/Stacje.csv'
-    response = requests.get(url)
-    if response.status_code == 200:
-        return pd.read_csv(StringIO(response.text))
-    else:
-        st.error("Failed to load data from GitHub.")
-        return None
         
-
     
 def main():
     with st.sidebar:
@@ -122,9 +112,11 @@ def main():
         #else:
             #st.write("Wrong")
     with st.container():
-        df = load_original_data()
-
-        st.dataframe(df)  # Same as st.write(df)
+        uploaded_file = st.file_uploader("Choose a file")
+        if uploaded_file is not None:  # Same as st.write(df)
+                # Can be used wherever a "file-like" object is accepted:
+            dataframe = pd.read_csv(uploaded_file)
+            st.write(dataframe)
         
 # Run the app
 if __name__ == "__main__":
