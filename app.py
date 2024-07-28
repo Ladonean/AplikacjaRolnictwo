@@ -30,5 +30,4 @@ df = pd.DataFrame({
      })
 st.write(df)
 
-st.markdown(page_element, unsafe_allow_html=True)
 
