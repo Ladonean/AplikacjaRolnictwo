@@ -1,5 +1,6 @@
 import streamlit as st
 import base64
+import pandas as pd
 
 # Funkcja do załadowania obrazu tła
 def add_bg_from_local(image_file):
@@ -13,7 +14,7 @@ def add_bg_from_local(image_file):
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            opacity: 0.5;
+            opacity: 0.8;
         }}
         </style>
         """,
