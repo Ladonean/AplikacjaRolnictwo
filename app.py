@@ -44,6 +44,18 @@ def date_input_proc(input_date, time_range):
     str_start_date = start_date.strftime('%Y-%m-%d')
     str_end_date = end_date.strftime('%Y-%m-%d')
     return str_start_date, str_end_date
+    
+def geocode_adress(address):
+    geolocator = Nominatim(user_agent="myGeocoder")
+    try:
+        location = geolocator.geocode(address)
+        if location:
+            return [location.latitude, location.longitude]
+        else:
+            return None
+    except GeocoderTimedOut:
+        return None
+
 
 
 def main():
@@ -73,18 +85,18 @@ def main():
                 st.success("Data P 📅")
                 initial_date = st.date_input("initial", value=delay, label_visibility="collapsed")
     
-
-
-    with st.container(): 
-        m = folium.Map(location = [54, 18.6], zoom_start = 10, tiles="Esri.WorldImagery")
-        folium.Marker(
-            location=[54, 18.6],
-            popup=folium.Popup("Let's try quotes", parse_html=True, max_width=100),
-        ).add_to(m)
-        st_folium (m, height = 800)
-
-
-
+    with st.container():
+        address = st.text_input("Wpisz adres:", "Gdansk, Polska")
+        coords = geocode_address(address)
+        if coords:
+            m = folium.Map(location = coords, zoom_start = 10, tiles="Esri.WorldImagery")
+            folium.Marker(
+                location=coords,
+                popup=address,
+            ).add_to(m)
+            st_folium (m, height = 800
+        else:
+            st.write("Wrong")
 
 
 # Run the app
