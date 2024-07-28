@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-
+import openai
 
 page_element="""
 <style>
@@ -8,12 +8,10 @@ page_element="""
   background-image: url("https://github.com/Ladonean/Nauka/blob/main/nature-fcp.png");
   background-size: cover;
 }
-[data-testid="stHeader"]{
-  background-color: rgba(0,0,0,0);
-}
 </style>
 """
 
+st.markdown(page_element, unsafe_allow_html=True)
 st.header('st.write')
 
 # Example 1
