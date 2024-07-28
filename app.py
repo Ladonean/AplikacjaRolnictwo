@@ -1,8 +1,10 @@
 import streamlit as st
 import pandas as pd
 
+def load_css(file):
+  with open(file) as f:
+    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-image='nature-fcp.png'
+load_css('style.css')
 
-st.image(image, caption='natura')
-
+st.title("moja apka")
