@@ -36,9 +36,6 @@ page_bg_img= """
 
 # Dodaj tło z lokalnego pliku
 st.markdown(page_bg_img, unsafe_allow_html=True)
-data = (
-    np.random.normal(size=(100, 3)) * np.array([[1, 1, 1]]) + np.array([[54, 18.6, 1]])
-    ).tolist()
 
 def date_input_proc(input_date, time_range):
     end_date = input_date
@@ -81,8 +78,7 @@ def main():
 
     
     m = folium.Map(location = [54, 18.6], zoom_start = 10, tiles="Esri.WorldImagery")
-    HeatMap(data).add_to(m)
-    
+
     st_folium (m, width = 800, height = 800)
 
 
