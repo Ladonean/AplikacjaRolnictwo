@@ -29,10 +29,7 @@ page_bg_img = """
         .stApp {
         background-color: #e6ffe6;
         }
-        .map {
-            width: 800px;
-            height: 800px;
-        }
+
         /* Usunięcie przerwy między sekcjami */
         .css-1lcbmhc, .css-18e3th9 {
             padding: 0;
