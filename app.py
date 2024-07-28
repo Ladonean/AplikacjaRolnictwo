@@ -67,7 +67,7 @@ def main():
 
                 # Date input widgets
                 st.success("Data P 📅")
-                initial_date = col1.date_input("initial", value=delay, label_visibility="collapsed")
+                initial_date = st.date_input("initial", value=delay, label_visibility="collapsed")
 
 
 
