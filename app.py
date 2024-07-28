@@ -20,7 +20,7 @@ st.set_page_config(
     'About': "https://github.com/Ladonean/Nauka/tree/main"
     }
 )
-
+csv_url="https://github.com/Ladonean/Nauka/blob/main/Stacje.csv"
 # Funkcja do załadowania obrazu tła
 page_bg_img= """
         <style>
@@ -63,7 +63,11 @@ def geocode_address(address):
     except GeocoderTimedOut:
         return None
         
-    
+def load_data(url):
+    try:
+        df = pd.read_csv(url)
+        df.columns = ['X','Y','Stacja']
+
 def main():
     with st.sidebar:
         st.title("App")
@@ -112,11 +116,8 @@ def main():
         #else:
             #st.write("Wrong")
     with st.container():
-        uploaded_file = st.file_uploader("Choose a file")
-        if uploaded_file is not None:  # Same as st.write(df)
-                # Can be used wherever a "file-like" object is accepted:
-            dataframe = pd.read_csv(uploaded_file)
-            st.write(dataframe)
+        data=load_data(csv_url)
+        st.dataframe(data)
         
 # Run the app
 if __name__ == "__main__":
