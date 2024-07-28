@@ -75,7 +75,6 @@ def wczytaj_stacje(url):
     
     return df
     
-df_baza = wczytaj_stacje("https://github.com/Ladonean/Nauka/blob/main/Stacje.csv")
 
 def main():
     with st.sidebar:
@@ -114,6 +113,7 @@ def main():
                 popup=address,
             ).add_to(m)
             
+            df_baza = wczytaj_stacje("https://github.com/Ladonean/Nauka/blob/main/Stacje.csv")
             marker_cluster = MarkerCluster().add_to(m)
             for idx, row in df.iterrows():
                 folium.Marker(location=[row['Y'], row['X']], popup=row['Stacja']).add_to(marker_cluster)
