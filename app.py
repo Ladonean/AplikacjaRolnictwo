@@ -75,13 +75,13 @@ def main():
     
 
 
-  
-m = folium.Map(location = [54, 18.6], zoom_start = 10, tiles="Esri.WorldImagery")
-folium.Marker(
-    location=[54, 18.6],
-    popup=folium.Popup("Let's try quotes", parse_html=True, max_width=100),
-).add_to(m)
-st_folium (m, width = 800, height = 800)
+    with st.container(): 
+        m = folium.Map(location = [54, 18.6], zoom_start = 10, tiles="Esri.WorldImagery")
+        folium.Marker(
+            location=[54, 18.6],
+            popup=folium.Popup("Let's try quotes", parse_html=True, max_width=100),
+        ).add_to(m)
+        st_folium (m, width = 800, height = 800)
 
 
 
