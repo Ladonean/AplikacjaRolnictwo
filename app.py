@@ -1,22 +1,11 @@
-import numpy as np
-import altair as alt
-import pandas as pd
 import streamlit as st
+import pandas as pd
+import pandas_profiling
+from streamlit_pandas_profiling import st_profile_report
 
-st.header('st.write')
+st.header('`streamlit_pandas_profiling`')
 
-# Example 1
+df = pd.read_csv('https://raw.githubusercontent.com/dataprofessor/data/master/penguins_cleaned.csv')
 
-st.write('Hello, *World!* :sunglasses:')
-
-# Example 2
-
-st.write(1234)
-
-# Example 3
-
-df = pd.DataFrame({
-     'first column': [1, 2, 3, 4],
-     'second column': [10, 20, 30, 40]
-     })
-st.write(df)
+pr = df.profile_report()
+st_profile_report(pr)
