@@ -39,7 +39,7 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 
 def main():
     with st.sidebar:
-        st.title(App")
+        st.title("App")
         st.subheader("Menu:")
         st.markdown(
             """
