@@ -2,56 +2,49 @@ import streamlit as st
 import folium
 from streamlit_folium import st_folium
 from folium.plugins import HeatMap
-from streamlit_folium import folium_static
 import pandas as pd
 from datetime import datetime, timedelta
-import numpy as np
-from geopy.geocoders import Nominatim
-from geopy.exc import GeocoderTimedOut
 from geopy.geocoders import Photon
-import requests
-from io import StringIO
+from geopy.exc import GeocoderTimedOut
 
 st.set_page_config(
-    page_title="App",
+    page_title="Aplikacja",
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={
-    'About': "https://github.com/Ladonean/Nauka/tree/main"
+        'About': "https://github.com/Ladonean/Nauka/tree/main"
     }
 )
-csv_url="https://github.com/Ladonean/Nauka/blob/main/Stacje.csv"
-# Funkcja do załadowania obrazu tła
-page_bg_img= """
+
+# Funkcja do załadowania stylu tła
+page_bg_img = """
         <style>
-        /* Smooth scrolling*/
+        /* Płynne przewijanie */
         .main {
         scroll-behavior: smooth;
         }
-        /* main app body with less padding*/
+        /* główna część aplikacji z mniejszym paddingiem */
         .st-emotion-cache-z5fcl4 {
         padding-block: 0;
         }
-
-
         .stApp {
         background-color: #e6ffe6;
         }
         </style>
         """
 
-# Dodaj tło z lokalnego pliku
+# Dodanie stylu tła
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
-
+# Funkcja do przetwarzania daty
 def date_input_proc(input_date, time_range):
     end_date = input_date
     start_date = input_date - timedelta(days=time_range)
-    
     str_start_date = start_date.strftime('%Y-%m-%d')
     str_end_date = end_date.strftime('%Y-%m-%d')
     return str_start_date, str_end_date
-    
+
+# Funkcja do geokodowania adresu
 def geocode_address(address):
     geolocator = Photon(user_agent="measurements")
     try:
@@ -62,63 +55,54 @@ def geocode_address(address):
             return None
     except GeocoderTimedOut:
         return None
-        
-def load_data(url):
-        df = pd.read_csv(url)
-        df.columns = ['X','Y','Stacja']
 
+# Funkcja do ładowania danych
+def load_data(url):
+    df = pd.read_csv(url)
+    df.columns = ['X', 'Y', 'Stacja']
+    return df
+
+# Główna funkcja uruchamiająca aplikację
 def main():
     with st.sidebar:
-        st.title("App")
+        st.title("Aplikacja")
         st.subheader("Menu:")
         st.markdown(
             """
                 - [Data](#data)
                 - [Mapa](#mapa)
-                - [Opady](#Opady)
+                - [Opady](#opady)
                 - [About](#about)
             """)
-        
+
     with st.container():
-        st.title("App opady")
-        st.markdown("Aplikacja sluzaca do sprawdzania opadow i wskaznika ndvi na obszarze Polski")
+        st.title("Aplikacja Opady")
+        st.markdown("Aplikacja służąca do sprawdzania opadów i wskaźnika NDVI na obszarze Polski")
 
-        
     with st.container():
+        today = datetime.today()
+        delay = today - timedelta(days=5)
+        st.success("Data 📅")
+        initial_date = st.date_input("Data początkowa", value=delay, label_visibility="collapsed")
 
-                # Creating a 2 days delay for the date_input placeholder to be sure there are satellite images in the dataset on app start
-                today = datetime.today()
-                delay = today - timedelta(days=5)
-
-                # Date input widgets
-                st.success("Data P 📅")
-                initial_date = st.date_input("initial", value=delay, label_visibility="collapsed")
-    
     with st.container():
         address = st.text_input("Wpisz adres:", "Czaple, Kartuzy")
         coords = geocode_address(address)
         if coords:
-            m = folium.Map(location = coords, zoom_start = 10, tiles="Esri.WorldImagery")
+            m = folium.Map(location=coords, zoom_start=10, tiles="Esri.WorldImagery")
             folium.Marker(
                 location=coords,
                 popup=address,
             ).add_to(m)
+            st_folium(m, width=1600)
+        else:
+            st.write("Nie udało się zlokalizować adresu.")
 
-            
-            #marker_cluster = MarkerCluster().add_to(m)
-            #for idx, row in df.iterrows():
-                #folium.Marker(location=[row['Y'], row['X']], popup=row['Stacja']).add_to(marker_cluster)
-            
-            #folium.LayerControl().add_to(m)
-            
-            st_folium (m, width=1600)
-        #else:
-            #st.write("Wrong")
     with st.container():
-        data=load_data(csv_url)
+        csv_url = "https://raw.githubusercontent.com/Ladonean/Nauka/main/Stacje.csv"
+        data = load_data(csv_url)
         st.dataframe(data)
-        
-# Run the app
+
+# Uruchomienie aplikacji
 if __name__ == "__main__":
     main()
-
