@@ -61,7 +61,7 @@ def main():
         
     with st.container():
 
-                col1 = st.columns(1)
+                col1,col2 = st.columns(2)
                 
                 # Creating a 2 days delay for the date_input placeholder to be sure there are satellite images in the dataset on app start
                 today = datetime.today()
