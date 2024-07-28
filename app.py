@@ -29,7 +29,6 @@ page_bg_img= """
         </style>
         """
 
-
 # Dodaj tło z lokalnego pliku
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
@@ -44,6 +43,10 @@ def main():
                 - [Opady](#Opady)
                 - [About](#about)
             """)
+        
+    with st.container():
+        st.title("App opady")
+        st.markdown("Aplikacja sluzaca do sprawdzania opadow i wskaznika ndvi na obszarze Polski")
 
 # Run the app
 if __name__ == "__main__":
