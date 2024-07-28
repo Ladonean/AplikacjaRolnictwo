@@ -8,7 +8,6 @@ from geopy.exc import GeocoderTimedOut
 
 st.set_page_config(
     page_title="Aplikacja",
-    layout="wide",
     initial_sidebar_state="expanded",
     menu_items={
         'About': "https://github.com/Ladonean/Nauka/tree/main"
