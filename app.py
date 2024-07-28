@@ -26,3 +26,12 @@ add_bg_from_local('R.jpg')
 # Reszta kodu Streamlit
 st.title("Moja aplikacja Streamlit z tłem")
 st.write("Przykładowa zawartość aplikacji")
+
+
+st.write('Hello, *World!* :sunglasses:')
+
+df = pd.DataFrame({
+     'first column': [1, 2, 3, 4],
+     'second column': [10, 20, 30, 40]
+     })
+st.write(df)
