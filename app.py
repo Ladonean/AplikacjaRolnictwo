@@ -4,6 +4,7 @@ from streamlit_folium import st_folium
 from folium.plugins import HeatMap
 import pandas as pd
 from datetime import datetime, timedelta
+import numpy as np
 
 st.set_page_config(
     page_title="App",
