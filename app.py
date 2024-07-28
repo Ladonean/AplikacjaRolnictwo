@@ -72,6 +72,8 @@ def main():
                 initial_date = st.date_input("initial", value=delay, label_visibility="collapsed")
     
 
+    m = folium.Map(location = [53, 18], zoom_start = 5)
+
 
 
 # Run the app
