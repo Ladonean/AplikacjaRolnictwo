@@ -72,9 +72,6 @@ def main():
                 initial_date = col1.date_input("initial", value=delay, label_visibility="collapsed")
 
 
-                # Process initial date
-                str_initial_start_date, str_initial_end_date = date_input_proc(initial_date, time_range)
-
 
 
 
