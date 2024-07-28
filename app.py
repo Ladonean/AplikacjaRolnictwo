@@ -34,7 +34,7 @@ def wczytaj_stacje(url):
     
 
 
-def main():
+
 
     path_stacje1 = 'https://raw.githubusercontent.com/Ladonean/FigDetect/main/Stacje.csv'
     st.write("lol")
@@ -59,8 +59,4 @@ def main():
             
             st_folium (m, width=1600)
 
-
-# Run the app
-if __name__ == "__main__":
-    main()
 
