@@ -6,7 +6,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={
-    'Repo': "https://github.com/Ladonean/Nauka/tree/main"
+    'About': "https://github.com/Ladonean/Nauka/tree/main"
     }
 )
 
