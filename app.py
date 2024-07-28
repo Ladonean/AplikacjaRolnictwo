@@ -32,7 +32,7 @@ page_bg_img = """
         .map-container {
             width: 800px; /* Ustaw szerokość kontenera mapy */
             height: 800px; /* Ustaw wysokość kontenera mapy */
-            margin: 0 auto; /* Wycentruj kontener mapy */
+
         }
         /* Usunięcie przerwy między sekcjami */
         .css-1lcbmhc {
