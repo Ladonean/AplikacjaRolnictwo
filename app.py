@@ -21,6 +21,12 @@ page_bg_img= """
         .st-emotion-cache-z5fcl4 {
         padding-block: 0;
         }
+        /*Sidebar : Navigation list*/
+        div.element-container:nth-child(4) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(1) {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        }
         .stApp {
         background-color: #e6ffe6;
         }
