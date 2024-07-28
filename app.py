@@ -2,17 +2,17 @@ import streamlit as st
 import pandas as pd
 import openai
 
-page_element="""
-<style>
-[data-testid="stAppViewContainer"]{
-  background-image: url("https://github.com/Ladonean/Nauka/blob/main/nature-fcp.png");
-  background-size: cover;
-}
-</style>
-"""
 
-st.markdown(page_element, unsafe_allow_html=True)
 st.header('st.write')
+st.markdown(
+    """
+    <style>
+    .reportview-container {
+        background: url("https://github.com/Ladonean/Nauka/blob/main/nature-fcp.png")
+    }
+    """,
+    unsafe_allow_html=True
+)
 
 # Example 1
 
