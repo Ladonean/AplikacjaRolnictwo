@@ -68,7 +68,7 @@ def wczytaj_stacje(url):
         st.error("Nie udało się pobrać danych stacji z podanego URL: " + url)
         return None
     data = response.content.decode()
-    df = pd.read_csv(StringIO(data), delimiter=',', header=None)
+    df = pd.read_csv(StringIO(data), delimiter=',')
     
     df.columns = ['X', 'Y', 'Stacja']
     df['X'] = df['X'].astype(float)
