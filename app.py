@@ -83,19 +83,18 @@ def main():
         st.title("Aplikacja Opady")
         st.markdown("Aplikacja służąca do sprawdzania opadów i wskaźnika NDVI na obszarze Polski")
 
-    
-    with c1:
-        col1, col2 = st.columns(2)
+    with st.container():
         today = datetime.today()
         delay = today - timedelta(days=5)
         st.success("Data ??")
-        col1.date_input("Data początkowa", value=delay, label_visibility="collapsed")
+        initial_date = st.date_input("Data początkowa", value=delay, label_visibility="collapsed")
 
-        address = col2.text_input("Wpisz adres:", "Czaple, Kartuzy")
+    with st.container():
+        address = st.text_input("Wpisz adres:", "Czaple, Kartuzy")
         coords = geocode_address(address)
         if coords:
 
-            m = folium.Map(location=coords, zoom_start=10, tiles="Esri.WorldImagery", width='100%', height='100%')
+            m = folium.Map(location=coords, zoom_start=10, tiles="Esri.WorldImagery")
             folium.Marker(
                 location=coords,
                 popup=address,
