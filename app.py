@@ -79,6 +79,7 @@ def wczytaj_stacje(url):
     
 path_stacje1 = 'https://raw.githubusercontent.com/Ladonean/FigDetect/main/Stacje.csv'
 st.write("lol")
+df = wczytaj_stacje(path_stacje1)
 st.dataframe(df)
 
 def main():
