@@ -97,14 +97,12 @@ def main():
         address = st.text_input("Wpisz adres:", "Czaple, Kartuzy")
         coords = geocode_address(address)
         if coords:
-            st.markdown('<div class="map-container">', unsafe_allow_html=True)
             m = folium.Map(location=coords, zoom_start=10, tiles="Esri.WorldImagery")
             folium.Marker(
                 location=coords,
                 popup=address,
             ).add_to(m)
             st_folium(m, width=800, height=800)  # Dostosowanie szerokości i wysokości mapy
-            st.markdown('</div>', unsafe_allow_html=True)
         else:
             st.write("Nie udało się zlokalizować adresu.")
 
