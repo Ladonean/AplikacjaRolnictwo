@@ -42,7 +42,7 @@ page_bg_img= """
 
 # Dodaj tło z lokalnego pliku
 st.markdown(page_bg_img, unsafe_allow_html=True)
-path_stacje1 = 'https://raw.githubusercontent.com/Ladonean/FigDetect/main/Stacje.csv'
+
 
 def date_input_proc(input_date, time_range):
     end_date = input_date
@@ -77,6 +77,9 @@ def wczytaj_stacje(url):
     
     return df
     
+path_stacje1 = 'https://raw.githubusercontent.com/Ladonean/FigDetect/main/Stacje.csv'
+st.write("lol")
+st.dataframe(df)
 
 def main():
     with st.sidebar:
@@ -114,9 +117,7 @@ def main():
                 location=coords,
                 popup=address,
             ).add_to(m)
-            path_stacje = "Stacje.csv"
-            
-            df_baza = wczytaj_stacje(path_stacje)
+
             
             marker_cluster = MarkerCluster().add_to(m)
             for idx, row in df.iterrows():
@@ -127,9 +128,7 @@ def main():
             st_folium (m, width=1600)
         else:
             st.write("Wrong")
-    st.write("lol")
-    with st.container():
-        st.dataframe(df)
+
 # Run the app
 if __name__ == "__main__":
     main()
