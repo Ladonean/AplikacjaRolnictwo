@@ -98,8 +98,8 @@ def main():
             st.write("Nie udało się zlokalizować adresu.")
 
     with st.container():
-        csv_url = "https://raw.githubusercontent.com/Ladonean/Nauka/main/Stacje.csv?raw=true"
-        data = load_data(csv_url)
+        csv_url1 = "https://raw.githubusercontent.com/Ladonean/Nauka/main/Stacje.csv?raw=true"
+        data = load_data(csv_url1)
         st.dataframe(data)
 
 # Uruchomienie aplikacji
