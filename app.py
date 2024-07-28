@@ -29,10 +29,6 @@ page_bg_img = """
         .stApp {
         background-color: #e6ffe6;
         }
-        .map-container {
-            display: flex;
-            height: 800px;
-        }
         .map {
             width: 800px;
             height: 800px;
