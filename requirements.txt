@@ -11,4 +11,3 @@ scipy
 geokrige
 geemap
 ee
-calendar
