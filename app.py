@@ -304,10 +304,8 @@ def main():
             path_shp = 'https://raw.githubusercontent.com/Ladonean/FigDetect/main/gadm41_POL_1.shp'
             # Rysowanie mapy
             fig, ax = plot_wynik(path_shp, merged_data, f'Opady {end_date.strftime("%d")}-{end_date.strftime("%m")}-{end_date.strftime("%Y")}')
-    
-    with st.container():
-        st.markdown('<h2 id="polska">Polska</h2>', unsafe_allow_html=True)
-        st.pyplot(fig)
+            st.markdown('<h2 id="polska">Polska</h2>', unsafe_allow_html=True)
+            st.pyplot(fig)
 
     # with st.container():
     #     csv_url = "https://raw.githubusercontent.com/Ladonean/Nauka/main/Stacje.csv?raw=true"
