@@ -27,19 +27,12 @@ st.set_page_config(
     }
 )
 
-def ee_authenticate():
-    # Pobranie JSON-a jako stringa z secrets
-    service_account_info = json.loads(st.secrets["json_data"])
-    
-    # Dodanie zakresu OAuth
-    credentials = service_account.Credentials.from_service_account_info(
-        service_account_info,
-        scopes=['https://www.googleapis.com/auth/earthengine']
-    )
-    ee.Initialize(credentials)
-
-# Wywołanie funkcji autoryzacji
-ee_authenticate()
+json_object = json.loads(json_data, strict=False)
+service_account = json_object['client_email']
+json_object = json.dumps(json_object)
+# Authorising the app
+credentials = ee.ServiceAccountCredentials(service_account, key_data=json_object)
+ee.Initialize(credentials)
 
 st.write("Google Earth Engine is authenticated and initialized!")
         
