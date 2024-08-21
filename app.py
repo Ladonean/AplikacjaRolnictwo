@@ -175,7 +175,7 @@ def plot_wynik(path_shp, Wynik, title):
 # Główna funkcja uruchamiająca aplikację
 def main():
 
-    # ee_authenticate(token_name="EARTHENGINE_TOKEN")
+    ee_authenticate(token_name="EARTHENGINE_TOKEN")
     with st.sidebar:
         st.title("Aplikacja Opady")
         st.subheader("Menu:")
