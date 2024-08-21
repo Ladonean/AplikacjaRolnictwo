@@ -11,30 +11,7 @@ st.set_page_config(
     }
 )
 
-# Funkcja do załadowania stylu tła
-page_bg_img = """
-        <style>
-        /* Płynne przewijanie */
-        .main {
-        scroll-behavior: smooth;
-        }
-        /* główna część aplikacji z mniejszym paddingiem */
-        .st-emotion-cache-z5fcl4 {
-        padding-block: 0;
-        }
-        .stApp {
-        background-color: #ffffff;
-        }
 
-        /* Usunięcie przerwy między sekcjami */
-        .css-1lcbmhc, .css-18e3th9 {
-            padding: 0;
-        }
-        </style>
-        """
-
-# Dodanie stylu tła
-st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Główna funkcja uruchamiająca aplikację
 def main():
