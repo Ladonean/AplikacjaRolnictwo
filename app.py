@@ -23,8 +23,11 @@ def ee_authenticate():
     # Pobranie JSON-a jako stringa z secrets
     service_account_info = json.loads(st.secrets["json_data"])
     
-    # Użycie service_account_info do autoryzacji
-    credentials = service_account.Credentials.from_service_account_info(service_account_info)
+    # Dodanie zakresu OAuth
+    credentials = service_account.Credentials.from_service_account_info(
+        service_account_info,
+        scopes=['https://www.googleapis.com/auth/earthengine']
+    )
     ee.Initialize(credentials)
 
 # Wywołanie funkcji autoryzacji
