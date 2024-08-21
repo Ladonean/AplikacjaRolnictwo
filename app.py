@@ -17,6 +17,13 @@ import calendar
 from scipy.interpolate import Rbf
 import matplotlib.pyplot as plt
 
+st.set_page_config(
+    page_title="Aplikacja Opady",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'About': "https://github.com/Ladonean/Nauka/tree/main"
+    }
+)
 
 # Funkcja do załadowania stylu tła
 page_bg_img = """
@@ -56,8 +63,8 @@ def geocode_address(address):
         return None
 
 # Funkcja NDVI
-#ee.Authenticate() 
-#ee.Initialize(project='ee-ladone')
+ee.Authenticate() 
+ee.Initialize(project='ee-ladone')
 
 def calculate_ndvi(start_date, end_date, coords):
     # Pobieranie kolekcji obrazów Landsat 8 (Collection 2 Level 2)
