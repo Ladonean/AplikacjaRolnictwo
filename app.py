@@ -27,6 +27,9 @@ st.set_page_config(
     }
 )
 
+json_data = st.secrets["json_data"]
+service_account = st.secrets["service_account"]
+
 json_object = json.loads(json_data, strict=False)
 service_account = json_object['client_email']
 json_object = json.dumps(json_object)
