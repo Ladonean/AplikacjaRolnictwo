@@ -285,7 +285,7 @@ def main():
     
     with st.container():
         st.markdown('<h2 id="polska">Polska</h2>', unsafe_allow_html=True)
-        st.pyplot(fig)
+        # st.pyplot(fig)
 
     # with st.container():
     #     csv_url = "https://raw.githubusercontent.com/Ladonean/Nauka/main/Stacje.csv?raw=true"
