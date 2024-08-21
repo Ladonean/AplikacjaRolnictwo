@@ -194,106 +194,106 @@ def main():
         st.title("Aplikacja Opady")
         st.markdown("Aplikacja służąca do sprawdzania opadów i wskaźnika NDVI na obszarze Polski")
 
-    with st.container():
-        end_date = st.date_input("Wybierz datę końcową", value=datetime.today())
+    # with st.container():
+    #     end_date = st.date_input("Wybierz datę końcową", value=datetime.today())
 
-        start_date = end_date - timedelta(weeks=2)
+    #     start_date = end_date - timedelta(weeks=2)
 
-        # st.success(f"Dzisiejsza data: {datetime.today()}")
-        # st.write(f"Wybrana data początkowa: {start_date.strftime('%Y-%m-%d')}")
-        # st.write(f"Wybrana data końcowa: {end_date.strftime('%Y-%m-%d')}")
+    #     # st.success(f"Dzisiejsza data: {datetime.today()}")
+    #     # st.write(f"Wybrana data początkowa: {start_date.strftime('%Y-%m-%d')}")
+    #     # st.write(f"Wybrana data końcowa: {end_date.strftime('%Y-%m-%d')}")
 
-
-    with st.container():
-        st.markdown('<h2 id="mapa">Mapa</h2>', unsafe_allow_html=True)
-        address = st.text_input("Wpisz adres:", "Czaple, Kartuzy")
-        coords = geocode_address(address)
-
-
-        if coords:
-
-
-        # Ustawienia początkowe dat
-            ndvi_image, image_date = calculate_ndvi(start_date, end_date,coords)
-            ndwi_image = calculate_ndwi(start_date, end_date,coords)
-
-            ndvi_map_id_dict = geemap.ee_tile_layer(
-                ndvi_image,
-                vis_params={
-                'min': -0.3, 
-                'max': 0.8,
-                'palette': ['#a50026', '#d73027', '#fdae61', '#1a9850', '#006837']
-                },
-                name="NDVI"
-                )
-            
-            
-            ndwi_map_id_dict = geemap.ee_tile_layer(
-                ndwi_image,
-                vis_params={
-                'min': -0.6, 
-                'max': 0.3, 
-                'palette': ['#a50026', '#ffffbf', '#87a6ff']
-                },
-                name="NDWI"
-                )
-            
-            m = folium.Map(location=coords, zoom_start=10, tiles="Esri.WorldImagery")
-            folium.Marker(
-                location=coords,
-                popup=address,
-            ).add_to(m)
-
-            m.add_child(ndvi_map_id_dict)
-            m.add_child(ndwi_map_id_dict)
-
-
-            folium.LayerControl().add_to(m)
-
-            st_folium(m, width=600, height=600)  # Dostosowanie szerokości i wysokości mapy
-        
-        else:
-            st.write("Nie udało się zlokalizować adresu.")
-    
-    with st.container():
-        st.success(f"Data zdjęcia satelity {image_date}")
-    
-    if st.button("Generuj Mapę"):
-        folium.LayerControl().add_to(m)
-
-        m.save("example_123.html")
-
-    with st.container():
-        st.markdown('<h2 id="opady">Opady</h2>', unsafe_allow_html=True)
-        stacje_url = "https://raw.githubusercontent.com/Ladonean/Nauka/main/Stacje.csv?raw=true"
-        location_data = wczytaj_stacje(stacje_url)
-
-
-        opady_url = f'https://raw.githubusercontent.com/Ladonean/FigDetect/main/o_d_{end_date.strftime("%m")}_{end_date.strftime("%Y")}.csv'
-        rain_data = wczytaj_csv(opady_url)
-        if rain_data is not None:
-
-            merged_data = merge_data(location_data, rain_data, end_date)
-
-            st.dataframe(merged_data)
-            max_value = merged_data['Opady'].astype(float).max()
-            min_value = merged_data['Opady'].astype(float).min()
-            
-            st.write(f"Maksymalna ilość opadów: {max_value}")
-            st.write(f"Minimalna ilość opadów: {min_value}")
-
-            path_shp = 'https://raw.githubusercontent.com/Ladonean/FigDetect/main/gadm41_POL_1.shp'
-            # Rysowanie mapy
-            fig, ax = plot_wynik(path_shp, merged_data, f'Opady {end_date.strftime("%d")}-{end_date.strftime("%m")}-{end_date.strftime("%Y")}')
-    
-    with st.container():
-        st.markdown('<h2 id="polska">Polska</h2>', unsafe_allow_html=True)
-        st.pyplot(fig)
 
     # with st.container():
-    #     csv_url = "https://raw.githubusercontent.com/Ladonean/Nauka/main/Stacje.csv?raw=true"
-    #     data = load_data(csv_url)
-    #     st.dataframe(data)
+    #     st.markdown('<h2 id="mapa">Mapa</h2>', unsafe_allow_html=True)
+    #     address = st.text_input("Wpisz adres:", "Czaple, Kartuzy")
+    #     coords = geocode_address(address)
+
+
+    #     if coords:
+
+
+    #     # Ustawienia początkowe dat
+    #         ndvi_image, image_date = calculate_ndvi(start_date, end_date,coords)
+    #         ndwi_image = calculate_ndwi(start_date, end_date,coords)
+
+    #         ndvi_map_id_dict = geemap.ee_tile_layer(
+    #             ndvi_image,
+    #             vis_params={
+    #             'min': -0.3, 
+    #             'max': 0.8,
+    #             'palette': ['#a50026', '#d73027', '#fdae61', '#1a9850', '#006837']
+    #             },
+    #             name="NDVI"
+    #             )
+            
+            
+    #         ndwi_map_id_dict = geemap.ee_tile_layer(
+    #             ndwi_image,
+    #             vis_params={
+    #             'min': -0.6, 
+    #             'max': 0.3, 
+    #             'palette': ['#a50026', '#ffffbf', '#87a6ff']
+    #             },
+    #             name="NDWI"
+    #             )
+            
+    #         m = folium.Map(location=coords, zoom_start=10, tiles="Esri.WorldImagery")
+    #         folium.Marker(
+    #             location=coords,
+    #             popup=address,
+    #         ).add_to(m)
+
+    #         m.add_child(ndvi_map_id_dict)
+    #         m.add_child(ndwi_map_id_dict)
+
+
+    #         folium.LayerControl().add_to(m)
+
+    #         st_folium(m, width=600, height=600)  # Dostosowanie szerokości i wysokości mapy
+        
+    #     else:
+    #         st.write("Nie udało się zlokalizować adresu.")
+    
+    # with st.container():
+    #     st.success(f"Data zdjęcia satelity {image_date}")
+    
+    # if st.button("Generuj Mapę"):
+    #     folium.LayerControl().add_to(m)
+
+    #     m.save("example_123.html")
+
+    # with st.container():
+    #     st.markdown('<h2 id="opady">Opady</h2>', unsafe_allow_html=True)
+    #     stacje_url = "https://raw.githubusercontent.com/Ladonean/Nauka/main/Stacje.csv?raw=true"
+    #     location_data = wczytaj_stacje(stacje_url)
+
+
+    #     opady_url = f'https://raw.githubusercontent.com/Ladonean/FigDetect/main/o_d_{end_date.strftime("%m")}_{end_date.strftime("%Y")}.csv'
+    #     rain_data = wczytaj_csv(opady_url)
+    #     if rain_data is not None:
+
+    #         merged_data = merge_data(location_data, rain_data, end_date)
+
+    #         st.dataframe(merged_data)
+    #         max_value = merged_data['Opady'].astype(float).max()
+    #         min_value = merged_data['Opady'].astype(float).min()
+            
+    #         st.write(f"Maksymalna ilość opadów: {max_value}")
+    #         st.write(f"Minimalna ilość opadów: {min_value}")
+
+    #         path_shp = 'https://raw.githubusercontent.com/Ladonean/FigDetect/main/gadm41_POL_1.shp'
+    #         # Rysowanie mapy
+    #         fig, ax = plot_wynik(path_shp, merged_data, f'Opady {end_date.strftime("%d")}-{end_date.strftime("%m")}-{end_date.strftime("%Y")}')
+    
+    # with st.container():
+    #     st.markdown('<h2 id="polska">Polska</h2>', unsafe_allow_html=True)
+    #     st.pyplot(fig)
+
+    # # with st.container():
+    # #     csv_url = "https://raw.githubusercontent.com/Ladonean/Nauka/main/Stacje.csv?raw=true"
+    # #     data = load_data(csv_url)
+    # #     st.dataframe(data)
 
 
 
