@@ -9,5 +9,4 @@ streamlit-folium
 geopy
 scipy
 geokrige
-geemap.foliumap
 geemap
