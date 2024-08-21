@@ -17,10 +17,11 @@ import calendar
 from scipy.interpolate import Rbf
 import matplotlib.pyplot as plt
 
-def ee_authenticate(token_name="EARTHENGINE_TOKEN"):
-    token = st.secrets[token_name]
-    geemap.ee_initialize(token_name=token)
-
+def ee_authenticate():
+    token = st.secrets["EARTHENGINE_TOKEN"]
+    credentials = ee.ServiceAccountCredentials(None, token)
+    ee.Initialize(credentials)
+    
 ee_authenticate()
         
 # Funkcja do załadowania stylu tła
