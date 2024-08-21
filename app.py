@@ -15,16 +15,6 @@ st.set_page_config(
 
 # Główna funkcja uruchamiająca aplikację
 def main():
-    with st.sidebar:
-        st.title("Aplikacja Opady")
-        st.subheader("Menu:")
-        st.markdown(
-            """
-                - [Mapa](#mapa)
-                - [Opady](#opady)
-                - [Polska](#polska)
-                - [About](#about)
-            """)
 
     with st.container():
         st.title("Aplikacja Opady")
