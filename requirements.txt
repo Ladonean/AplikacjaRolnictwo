@@ -4,7 +4,6 @@ geopy
 geemap
 ee
 numpy
-PIL
 datetime
 requests
 io
