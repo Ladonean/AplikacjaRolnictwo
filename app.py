@@ -3,6 +3,15 @@ import folium
 from streamlit_folium import st_folium
 import pandas as pd
 
+
+st.set_page_config(
+    page_title="Aplikacja Opady",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'About': "https://github.com/Ladonean/Nauka/tree/main"
+    }
+)
+
 # Główna funkcja uruchamiająca aplikację
 def main():
 
