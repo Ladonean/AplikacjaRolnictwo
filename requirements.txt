@@ -1,2 +1,14 @@
 pandas==2.2.2
 streamlit-folium
+geopy
+geemap
+ee
+numpy
+PIL
+datetime
+requests
+io
+geopandas
+geokrige
+scipy
+matplotlib
