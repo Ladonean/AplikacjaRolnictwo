@@ -20,14 +20,17 @@ import json
 from google.oauth2 import service_account
 
 def ee_authenticate():
-    try:
-        # Próbujemy inicjalizacji Earth Engine
-        ee.Initialize()
-    except ee.EEException:
-        # Użycie sekretnych danych z Streamlit
-        service_account_info = json.loads(st.secrets["earthengine"])
-        credentials = service_account.Credentials.from_service_account_info(service_account_info)
-        ee.Initialize(credentials)
+    # Pobranie JSON-a jako stringa z secrets
+    service_account_info = json.loads(st.secrets["json_data"])
+    
+    # Użycie service_account_info do autoryzacji
+    credentials = service_account.Credentials.from_service_account_info(service_account_info)
+    ee.Initialize(credentials)
+
+# Wywołanie funkcji autoryzacji
+ee_authenticate()
+
+st.write("Google Earth Engine is authenticated and initialized!")
         
 st.set_page_config(
     page_title="Aplikacja Opady",
@@ -192,11 +195,6 @@ def plot_wynik(path_shp, Wynik, title):
 # Główna funkcja uruchamiająca aplikację
 def main():
 
-    # Wywołanie funkcji autoryzacji
-    ee_authenticate()
-    
-    st.write("Google Earth Engine is authenticated and initialized!")
-    
     with st.sidebar:
         st.title("Aplikacja Opady")
         st.subheader("Menu:")
