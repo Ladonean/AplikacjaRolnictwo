@@ -18,7 +18,9 @@ from scipy.interpolate import Rbf
 import matplotlib.pyplot as plt
 
 def ee_authenticate(token_name="EARTHENGINE_TOKEN"):
-    geemap.ee_initialize(token_name=token_name)
+    token = st.secrets[token_name]
+    geemap.ee_initialize(token_name=token)
+
         
 # Funkcja do załadowania stylu tła
 page_bg_img = """
@@ -175,7 +177,7 @@ def plot_wynik(path_shp, Wynik, title):
 # Główna funkcja uruchamiająca aplikację
 def main():
 
-    ee_authenticate(token_name="EARTHENGINE_TOKEN")
+    ee_authenticate()
     with st.sidebar:
         st.title("Aplikacja Opady")
         st.subheader("Menu:")
