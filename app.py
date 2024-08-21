@@ -17,7 +17,9 @@ import calendar
 from scipy.interpolate import Rbf
 import matplotlib.pyplot as plt
 
-
+def ee_authenticate(token_name="EARTHENGINE_TOKEN"):
+    geemap.ee_initialize(token_name=token_name)
+        
 # Funkcja do załadowania stylu tła
 page_bg_img = """
         <style>
