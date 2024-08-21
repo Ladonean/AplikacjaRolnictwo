@@ -17,13 +17,10 @@ import calendar
 from scipy.interpolate import Rbf
 import matplotlib.pyplot as plt
 
-def ee_authenticate():
-    token = st.secrets["EARTHENGINE_TOKEN"]
-    credentials = ee.ServiceAccountCredentials(None, token)
-    ee.Initialize(credentials)
-    
-ee_authenticate()
-        
+ee.Authenticate()
+
+ee.Initialize()
+
 # Funkcja do załadowania stylu tła
 page_bg_img = """
         <style>
