@@ -6,7 +6,6 @@ ee
 numpy
 datetime
 requests
-io
 geopandas
 geokrige
 scipy
