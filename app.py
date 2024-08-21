@@ -19,6 +19,14 @@ import matplotlib.pyplot as plt
 import json
 from google.oauth2 import service_account
 
+st.set_page_config(
+    page_title="Aplikacja Opady",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'About': "https://github.com/Ladonean/Nauka/tree/main"
+    }
+)
+
 def ee_authenticate():
     # Pobranie JSON-a jako stringa z secrets
     service_account_info = json.loads(st.secrets["json_data"])
@@ -35,14 +43,6 @@ ee_authenticate()
 
 st.write("Google Earth Engine is authenticated and initialized!")
         
-st.set_page_config(
-    page_title="Aplikacja Opady",
-    initial_sidebar_state="expanded",
-    menu_items={
-        'About': "https://github.com/Ladonean/Nauka/tree/main"
-    }
-)
-
 # Funkcja do załadowania stylu tła
 page_bg_img = """
         <style>
