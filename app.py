@@ -17,9 +17,6 @@ import calendar
 from scipy.interpolate import Rbf
 import matplotlib.pyplot as plt
 
-ee.Authenticate()
-
-ee.Initialize()
 
 # Funkcja do załadowania stylu tła
 page_bg_img = """
