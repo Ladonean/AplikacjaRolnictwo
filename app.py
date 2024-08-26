@@ -27,6 +27,11 @@ st.set_page_config(
     }
 )
 
+# Autoryzacja
+# ee.Authenticate() 
+# ee.Initialize(project='ee-ladone')
+
+
 json_data = st.secrets["json_data"]
 service_account = st.secrets["service_account"]
 
@@ -77,47 +82,64 @@ def geocode_address(address):
         return None
 
 # Funkcja NDVI
-#ee.Authenticate() 
-#ee.Initialize(project='ee-ladone')
+ee.Authenticate() 
+ee.Initialize(project='ee-ladone')
 
 def calculate_ndvi(start_date, end_date, coords):
-    # Pobieranie kolekcji obrazów Landsat 8 (Collection 2 Level 2)
+    # Inicjalizacja punktu i bufora
     point = ee.Geometry.Point([coords[1], coords[0]])
-    buffer = point.buffer(10000)
+    buffer = point.buffer(1000)
+    max_cloud_cover = 50
+    
+    # Pobieranie kolekcji obrazów Sentinel-2
     collection = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED") \
-        .filterDate(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')) \
-        .filterBounds(buffer)
+        .filterDate(str(start_date), str(end_date)) \
+        .filterBounds(buffer) \
+        .filter(ee.Filter.lte('CLOUDY_PIXEL_PERCENTAGE', max_cloud_cover)) \
+        .select(['B5', 'B4']) \
+        .reduce(ee.Reducer.median()) \
+        .clip(buffer)
     
-    # Zamiast median(), wybierz pierwszy obraz w kolekcji
-    first_image = collection.first()
+    # Sprawdzenie liczby obrazów
+    image_count = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED") \
+        .filterDate(str(start_date), str(end_date)) \
+        .filterBounds(buffer) \
+        .size() \
+        .getInfo()
+
+    print("Liczba obrazów w kolekcji: ", image_count)
     
-    # Pobranie daty obrazu
-    image_date = first_image.get('system:time_start').getInfo()
-    
-    if image_date is not None:
-        image_date = datetime.fromtimestamp(image_date / 1000, tz=timezone.utc).strftime('%Y-%m-%d')
-    else:
+    # Pobranie daty pierwszego obrazu
+    first_image = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED") \
+        .filterDate(str(start_date), str(end_date)) \
+        .filterBounds(buffer) \
+        .first()
+
+    image_date = ee.Date(first_image.get('system:time_start')).format('YYYY-MM-dd').getInfo()
+
+    if image_date is None:
         image_date = "Brak dostępnej daty"
     
     # Obliczanie NDVI dla wybranego obrazu
-    ndvi = first_image.normalizedDifference(['B5', 'B4']).rename('NDVI').clip(buffer)
+    ndvi = collection.normalizedDifference(['B5_median', 'B4_median']).rename('NDVI')
     
-    return ndvi, image_date
+    return collection, image_date
 
 
 def calculate_ndwi(start_date, end_date, coords):
     # Pobieranie kolekcji obrazów Landsat 8 (Collection 2 Level 2)
     point = ee.Geometry.Point([coords[1], coords[0]])
-    buffer = point.buffer(10000)  # Bufer 1 km wokół punktu
+    buffer = point.buffer(1000)  # Bufer 1 km wokół punktu
     collection = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED") \
-        .filterDate(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')) \
-        .filterBounds(buffer)
+        .filterDate(str(start_date), str(end_date)) \
+        .filterBounds(buffer) \
+        .median()
     
-    # Zamiast median(), wybierz pierwszy obraz w kolekcji
-    first_image = collection.first()
+    # # Zamiast median(), wybierz pierwszy obraz w kolekcji
+    # first_image = collection.first()
     
     # Obliczanie NDVI dla wybranego obrazu
-    ndwi = first_image.normalizedDifference(['B3', 'B5']).rename('NDVI').clip(buffer)
+    ndwi = collection.normalizedDifference(['B3', 'B5']).rename('NDVI').clip(buffer)
     
     return ndwi
 
@@ -226,18 +248,21 @@ def main():
 
 
         if coords:
-
+            print(start_date)
 
         # Ustawienia początkowe dat
-            ndvi_image, image_date = calculate_ndvi(start_date, end_date,coords)
-            ndwi_image = calculate_ndwi(start_date, end_date,coords)
 
+            ndvi_collection, image_date = calculate_ndvi(start_date, end_date,coords)
+            
+            ndvi_image = ndvi_collection.normalizedDifference(['B5_median', 'B4_median']).rename('NDVI')
+
+            ndwi_image = calculate_ndwi(start_date, end_date,coords)
             ndvi_map_id_dict = geemap.ee_tile_layer(
                 ndvi_image,
                 vis_params={
-                'min': -0.3, 
-                'max': 0.8,
-                'palette': ['#a50026', '#d73027', '#fdae61', '#1a9850', '#006837']
+                'min': -1, 
+                'max': 1,
+                'palette': ['red', 'yellow', 'green']
                 },
                 name="NDVI"
                 )
@@ -272,6 +297,20 @@ def main():
     
     with st.container():
         st.success(f"Data zdjęcia satelity {image_date}")
+    
+    with st.container():
+        st.subheader("NDVI - Normalized Difference Vegetation Index")
+        st.write("""
+                Wskaźnik NDVI jest narzędziem niezwykle ważnym dla rolników, pozwalającym na monitorowanie plonów oraz wykrywanie problemów związanych z niedoborem wody czy chorobami roślin. 
+                Dzięki danym pochodzącym z satelitarnej obserwacji Ziemi, rolnicy mogą uzyskać szybki i dokładny obraz stanu roślinności na swoich uprawach.
+                """)
+        
+        st.subheader("NDWI - Normalized Difference Water Index")
+        st.write("""
+                Wskaźnik NDWI służy do monitorowania zmian związanych z zawartością wody w zbiornikach wodnych. 
+                Ponieważ zbiorniki wodne silnie absorbują światło w widzialnym i podczerwonym spektrum elektromagnetycznym, NDWI wykorzystuje pasma zielone i bliskiej podczerwieni, aby wyodrębnić zbiorniki wodne. 
+                Wskaźnik ten jest czuły na tereny zurbanizowane, co może prowadzić do przeszacowania obszarów wodnych.
+                """)
     
     if st.button("Generuj Mapę"):
         folium.LayerControl().add_to(m)
