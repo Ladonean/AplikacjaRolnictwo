@@ -253,7 +253,7 @@ def main():
                 folium.LayerControl().add_to(m)
                     # Store the map in session state
                 st.session_state['map'] = m
-                st.session_state['image_date'] = image_date
+
 
             # Display the map from session state if available
             if 'map' in st.session_state:
@@ -263,6 +263,7 @@ def main():
                 st.write("Nie udało się zlokalizować adresu.")
     
     with st.container():
+        st.session_state['image_date'] = image_date
         st.success(f"Data zdjęcia satelity {image_date}")
 
     with st.container():
