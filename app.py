@@ -207,8 +207,7 @@ def main():
         coords = geocode_address(address)
 
 
-        if coords:
-            if st.button("Odśwież mapę"):
+        if coords and end_date:
 
             # Ustawienia początkowe dat
                 image, image_date, buffer = get_image(start_date, end_date,coords)
