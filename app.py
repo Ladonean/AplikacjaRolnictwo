@@ -89,7 +89,7 @@ def get_image(start_date, end_date, coords):
         .filterBounds(buffer)
     
     # Zamiast median(), wybierz pierwszy obraz w kolekcji
-    first_image = collection.first()
+    image = collection.first()
     
     # Pobranie daty obrazu
     image_date = first_image.get('system:time_start').getInfo()
