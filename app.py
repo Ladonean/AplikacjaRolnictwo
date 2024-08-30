@@ -80,27 +80,6 @@ def geocode_address(address):
 #ee.Authenticate() 
 #ee.Initialize(project='ee-ladone')
 
-def get_image(start_date, end_date, coords):
-    # Pobieranie kolekcji obrazów Landsat 8 (Collection 2 Level 2)
-    point = ee.Geometry.Point([coords[1], coords[0]])
-    buffer = point.buffer(10000)
-    collection = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED") \
-        .filterDate(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')) \
-        .filterBounds(buffer)
-    
-    # Zamiast median(), wybierz pierwszy obraz w kolekcji
-    image = collection.first()
-    
-    # Pobranie daty obrazu
-    image_date = image.get('system:time_start').getInfo()
-    
-    if image_date is not None:
-        image_date = datetime.fromtimestamp(image_date / 1000, tz=timezone.utc).strftime('%Y-%m-%d')
-    else:
-        image_date = "Brak dostępnej daty"
-    
-    return image, image_date, buffer
-
 
 
 # Wczytanie csv ze opadami
@@ -208,6 +187,26 @@ def main():
 
 
         if coords:
+            def get_image(start_date, end_date, coords):
+                # Pobieranie kolekcji obrazów Landsat 8 (Collection 2 Level 2)
+                point = ee.Geometry.Point([coords[1], coords[0]])
+                buffer = point.buffer(10000)
+                collection = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED") \
+                    .filterDate(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')) \
+                    .filterBounds(buffer)
+                
+                # Zamiast median(), wybierz pierwszy obraz w kolekcji
+                image = collection.first()
+                
+                # Pobranie daty obrazu
+                image_date = image.get('system:time_start').getInfo()
+                
+                if image_date is not None:
+                    image_date = datetime.fromtimestamp(image_date / 1000, tz=timezone.utc).strftime('%Y-%m-%d')
+                else:
+                    image_date = "Brak dostępnej daty"
+                
+                return image, image_date, buffer
 
 
         # Ustawienia początkowe dat
