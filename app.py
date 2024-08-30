@@ -209,8 +209,7 @@ def main():
 
         if coords:
             image, image_date, buffer = get_image(start_date, end_date,coords)
-            if st.button("Odśwież mapę"):
-            # Ustawienia początkowe dat
+
 
     
     
@@ -251,8 +250,13 @@ def main():
     
     
                 folium.LayerControl().add_to(m)
-    
-                st_folium(m, width=600, height=600)  # Dostosowanie szerokości i wysokości mapy
+                    # Store the map in session state
+                st.session_state['map'] = m
+                st.session_state['image_date'] = image_date
+
+            # Display the map from session state if available
+            if 'map' in st.session_state:
+                st_folium(st.session_state['map'], width=600, height=600)
             
             else:
                 st.write("Nie udało się zlokalizować adresu.")
