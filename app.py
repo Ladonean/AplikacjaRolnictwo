@@ -152,8 +152,6 @@ def plot_wynik(path_shp, Wynik, title):
 
     return fig, ax
 
-# Główna funkcja uruchamiająca aplikację
-def main():
 
     with st.sidebar:
         st.title("Aplikacja Opady")
@@ -312,6 +310,4 @@ def main():
 
 
 
-# Uruchomienie aplikacji
-if __name__ == "__main__":
-    main()
+
