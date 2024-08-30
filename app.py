@@ -187,6 +187,7 @@ def main():
 
 
         if coords:
+            @st.cache(allow_output_mutation=True)
             def get_image(start_date, end_date, coords):
                 # Pobieranie kolekcji obrazów Landsat 8 (Collection 2 Level 2)
                 point = ee.Geometry.Point([coords[1], coords[0]])
