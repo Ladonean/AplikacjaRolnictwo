@@ -80,7 +80,7 @@ def geocode_address(address):
 #ee.Authenticate() 
 #ee.Initialize(project='ee-ladone')
 
-def calculate_ndvi(start_date, end_date, coords):
+def get_image(start_date, end_date, coords):
     # Pobieranie kolekcji obrazów Landsat 8 (Collection 2 Level 2)
     point = ee.Geometry.Point([coords[1], coords[0]])
     buffer = point.buffer(10000)
@@ -99,27 +99,9 @@ def calculate_ndvi(start_date, end_date, coords):
     else:
         image_date = "Brak dostępnej daty"
     
-    # Obliczanie NDVI dla wybranego obrazu
-    ndvi = first_image.normalizedDifference(['B5', 'B4']).rename('NDVI').clip(buffer)
-    
-    return ndvi, image_date
+    return image, image_date
 
 
-def calculate_ndwi(start_date, end_date, coords):
-    # Pobieranie kolekcji obrazów Landsat 8 (Collection 2 Level 2)
-    point = ee.Geometry.Point([coords[1], coords[0]])
-    buffer = point.buffer(10000)  # Bufer 1 km wokół punktu
-    collection = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED") \
-        .filterDate(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')) \
-        .filterBounds(buffer)
-    
-    # Zamiast median(), wybierz pierwszy obraz w kolekcji
-    first_image = collection.first()
-    
-    # Obliczanie NDVI dla wybranego obrazu
-    ndwi = first_image.normalizedDifference(['B3', 'B5']).rename('NDVI').clip(buffer)
-    
-    return ndwi
 
 # Wczytanie csv ze opadami
 def wczytaj_csv(url):
@@ -229,9 +211,14 @@ def main():
 
 
         # Ustawienia początkowe dat
-            ndvi_image, image_date = calculate_ndvi(start_date, end_date,coords)
-            ndwi_image = calculate_ndwi(start_date, end_date,coords)
+            image, image_date = get_image(start_date, end_date,coords)
 
+
+            # Obliczanie NDVI dla wybranego obrazu
+            ndvi = image.normalizedDifference(['B5', 'B4']).rename('NDVI').clip(buffer)
+            # Obliczanie NDVI dla wybranego obrazu
+            ndwi = image.normalizedDifference(['B3', 'B5']).rename('NDVI').clip(buffer)
+            
             ndvi_map_id_dict = geemap.ee_tile_layer(
                 ndvi_image,
                 vis_params={
