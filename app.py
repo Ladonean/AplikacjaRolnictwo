@@ -213,7 +213,7 @@ def main():
         # Ustawienia początkowe dat
             image, image_date = get_image(start_date, end_date,coords)
 
-
+            buffer = point.buffer(10000)
             # Obliczanie NDVI dla wybranego obrazu
             ndvi = image.normalizedDifference(['B5', 'B4']).rename('NDVI').clip(buffer)
             # Obliczanie NDVI dla wybranego obrazu
