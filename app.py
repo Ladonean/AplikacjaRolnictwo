@@ -187,7 +187,7 @@ def main():
 
 
         if coords:
-            @st.cache(allow_output_mutation=True)
+
             def get_image(start_date, end_date, coords):
                 # Pobieranie kolekcji obrazów Landsat 8 (Collection 2 Level 2)
                 point = ee.Geometry.Point([coords[1], coords[0]])
@@ -211,51 +211,52 @@ def main():
 
 
         # Ustawienia początkowe dat
-            image, image_date, buffer = get_image(start_date, end_date,coords)
-
-
-            # Obliczanie NDVI dla wybranego obrazu
-            ndvi_image = image.normalizedDifference(['B5', 'B4']).rename('NDVI').clip(buffer)
-            # Obliczanie NDVI dla wybranego obrazu
-            ndwi_image = image.normalizedDifference(['B3', 'B5']).rename('NDVI').clip(buffer)
+            if st.button("Generuj Mapę"):
+                image, image_date, buffer = get_image(start_date, end_date,coords)
+    
+    
+                # Obliczanie NDVI dla wybranego obrazu
+                ndvi_image = image.normalizedDifference(['B5', 'B4']).rename('NDVI').clip(buffer)
+                # Obliczanie NDVI dla wybranego obrazu
+                ndwi_image = image.normalizedDifference(['B3', 'B5']).rename('NDVI').clip(buffer)
+                
+                ndvi_map_id_dict = geemap.ee_tile_layer(
+                    ndvi_image,
+                    vis_params={
+                    'min': -0.3, 
+                    'max': 0.8,
+                    'palette': ['#a50026', '#d73027', '#fdae61', '#1a9850', '#006837']
+                    },
+                    name="NDVI"
+                    )
+                
+                
+                ndwi_map_id_dict = geemap.ee_tile_layer(
+                    ndwi_image,
+                    vis_params={
+                    'min': -0.6, 
+                    'max': 0.3, 
+                    'palette': ['#a50026', '#ffffbf', '#87a6ff']
+                    },
+                    name="NDWI"
+                    )
+                
+                m = folium.Map(location=coords, zoom_start=10, tiles="Esri.WorldImagery")
+                folium.Marker(
+                    location=coords,
+                    popup=address,
+                ).add_to(m)
+    
+                m.add_child(ndvi_map_id_dict)
+                m.add_child(ndwi_map_id_dict)
+    
+    
+                folium.LayerControl().add_to(m)
+    
+                st_folium(m, width=600, height=600)  # Dostosowanie szerokości i wysokości mapy
             
-            ndvi_map_id_dict = geemap.ee_tile_layer(
-                ndvi_image,
-                vis_params={
-                'min': -0.3, 
-                'max': 0.8,
-                'palette': ['#a50026', '#d73027', '#fdae61', '#1a9850', '#006837']
-                },
-                name="NDVI"
-                )
-            
-            
-            ndwi_map_id_dict = geemap.ee_tile_layer(
-                ndwi_image,
-                vis_params={
-                'min': -0.6, 
-                'max': 0.3, 
-                'palette': ['#a50026', '#ffffbf', '#87a6ff']
-                },
-                name="NDWI"
-                )
-            
-            m = folium.Map(location=coords, zoom_start=10, tiles="Esri.WorldImagery")
-            folium.Marker(
-                location=coords,
-                popup=address,
-            ).add_to(m)
-
-            m.add_child(ndvi_map_id_dict)
-            m.add_child(ndwi_map_id_dict)
-
-
-            folium.LayerControl().add_to(m)
-
-            st_folium(m, width=600, height=600)  # Dostosowanie szerokości i wysokości mapy
-        
-        else:
-            st.write("Nie udało się zlokalizować adresu.")
+            else:
+                st.write("Nie udało się zlokalizować adresu.")
     
     with st.container():
         st.success(f"Data zdjęcia satelity {image_date}")
