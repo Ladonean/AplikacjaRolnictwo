@@ -207,10 +207,11 @@ def main():
         coords = geocode_address(address)
 
 
-        if coords and end_date:
-
+        if coords:
+            image, image_date, buffer = get_image(start_date, end_date,coords)
+            if st.button("Odśwież mapę"):
             # Ustawienia początkowe dat
-                image, image_date, buffer = get_image(start_date, end_date,coords)
+
     
     
                 # Obliczanie NDVI dla wybranego obrazu
