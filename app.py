@@ -92,7 +92,7 @@ def get_image(start_date, end_date, coords):
     image = collection.first()
     
     # Pobranie daty obrazu
-    image_date = first_image.get('system:time_start').getInfo()
+    image_date = image.get('system:time_start').getInfo()
     
     if image_date is not None:
         image_date = datetime.fromtimestamp(image_date / 1000, tz=timezone.utc).strftime('%Y-%m-%d')
