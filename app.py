@@ -262,9 +262,6 @@ def main():
             else:
                 st.write("Nie udało się zlokalizować adresu.")
     
-    with st.container():
-        st.session_state['image_date'] = image_date
-        st.success(f"Data zdjęcia satelity {image_date}")
 
     with st.container():
         st.subheader("NDVI - Normalized Difference Vegetation Index")
