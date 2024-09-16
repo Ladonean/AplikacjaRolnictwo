@@ -19,13 +19,16 @@ import matplotlib.pyplot as plt
 import json
 from google.oauth2 import service_account
 
+
+
 st.set_page_config(
-    page_title="Aplikacja Opady",
+    page_title="Aplikacja Rolnictwo",
     initial_sidebar_state="expanded",
     menu_items={
         'About': "https://github.com/Ladonean/Nauka/tree/main"
     }
 )
+
 
 json_data = st.secrets["json_data"]
 service_account = st.secrets["service_account"]
@@ -37,32 +40,10 @@ json_object = json.dumps(json_object)
 credentials = ee.ServiceAccountCredentials(service_account, key_data=json_object)
 ee.Initialize(credentials)
 
-st.write("Google Earth Engine is authenticated and initialized!")
-        
-# Funkcja do załadowania stylu tła
-page_bg_img = """
-        <style>
-        /* Płynne przewijanie */
-        .main {
-        scroll-behavior: smooth;
-        }
-        /* główna część aplikacji z mniejszym paddingiem */
-        .st-emotion-cache-z5fcl4 {
-        padding-block: 0;
-        }
-        .stApp {
-        background-color: #ffffff;
-        }
+# ee.Authenticate() 
+# ee.Initialize(project='ee-ladone')
 
-        /* Usunięcie przerwy między sekcjami */
-        .css-1lcbmhc, .css-18e3th9 {
-            padding: 0;
-        }
-        </style>
-        """
 
-# Dodanie stylu tła
-st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Funkcja do geokodowania adresu
 def geocode_address(address):
@@ -76,12 +57,9 @@ def geocode_address(address):
     except GeocoderTimedOut:
         return None
 
-# Funkcja NDVI
-#ee.Authenticate() 
-#ee.Initialize(project='ee-ladone')
-
 def get_image(start_date, end_date, coords):
     # Pobieranie kolekcji obrazów Landsat 8 (Collection 2 Level 2)
+
     point = ee.Geometry.Point([coords[1], coords[0]])
     buffer = point.buffer(10000)
     collection = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED") \
@@ -89,7 +67,7 @@ def get_image(start_date, end_date, coords):
         .filterBounds(buffer)
     
     # Zamiast median(), wybierz pierwszy obraz w kolekcji
-    image = collection.first()
+    image = collection.median()
     
     # Pobranie daty obrazu
     image_date = image.get('system:time_start').getInfo()
@@ -100,8 +78,6 @@ def get_image(start_date, end_date, coords):
         image_date = "Brak dostępnej daty"
     
     return image, image_date, buffer
-
-
 
 # Wczytanie csv ze opadami
 def wczytaj_csv(url):
@@ -177,69 +153,65 @@ def plot_wynik(path_shp, Wynik, title):
 def main():
 
     with st.sidebar:
-        st.title("Aplikacja Opady")
+        st.title("Aplikacja Rolnictwo")
         st.subheader("Menu:")
         st.markdown(
             """
                 - [Mapa](#mapa)
                 - [Opady](#opady)
                 - [Polska](#polska)
-                - [About](#about)
+                - [Infromacje](#informacje)
             """)
 
     with st.container():
-        st.title("Aplikacja Opady")
-        st.markdown("Aplikacja służąca do sprawdzania opadów i wskaźnika NDVI na obszarze Polski")
+        st.title("Aplikacja Rolnictwo")
+        st.markdown("Aplikacja służąca do sprawdzania wskaźnika NDVI i NDWI, a także miesięcznych opadów na obszarze Polski")
 
     with st.container():
-        end_date = st.date_input("Wybierz datę końcową", value=datetime.today())
+        date = st.date_input("Wybierz datę", value=datetime.today())
+        start_date = date.replace(day=1)
+        _, last_day = calendar.monthrange(date.year, date.month)
+        end_date = date.replace(day=last_day)
 
-        start_date = end_date - timedelta(weeks=2)
-
-        # st.success(f"Dzisiejsza data: {datetime.today()}")
-        # st.write(f"Wybrana data początkowa: {start_date.strftime('%Y-%m-%d')}")
-        # st.write(f"Wybrana data końcowa: {end_date.strftime('%Y-%m-%d')}")
 
 
     with st.container():
+
         st.markdown('<h2 id="mapa">Mapa</h2>', unsafe_allow_html=True)
         address = st.text_input("Wpisz adres:", "Czaple, Kartuzy")
         coords = geocode_address(address)
 
-
         if coords:
-            if st.button("Odśwież mapę"):
-                image, image_date, buffer = get_image(start_date, end_date,coords)
+            if st.button("Aktualizuj mapę"):
+                # Pobierz obraz i inne dane
+                image, image_date, buffer = get_image(start_date, end_date, coords)
 
-
-
-
-                # Obliczanie NDVI dla wybranego obrazu
+                # Obliczanie NDVI i NDWI dla wybranego obrazu
                 ndvi_image = image.normalizedDifference(['B5', 'B4']).rename('NDVI').clip(buffer)
-                # Obliczanie NDVI dla wybranego obrazu
-                ndwi_image = image.normalizedDifference(['B3', 'B5']).rename('NDVI').clip(buffer)
-                
+                ndwi_image = image.normalizedDifference(['B3', 'B5']).rename('NDWI').clip(buffer)
+
+                # Stworzenie warstw do mapy
                 ndvi_map_id_dict = geemap.ee_tile_layer(
                     ndvi_image,
                     vis_params={
-                    'min': -0.3, 
-                    'max': 0.8,
-                    'palette': ['#a50026', '#d73027', '#fdae61', '#1a9850', '#006837']
+                        'min': -0.3, 
+                        'max': 0.8,
+                        'palette': ['#a50026', '#d73027', '#fdae61', '#1a9850', '#006837']
                     },
                     name="NDVI"
-                    )
-                
-                
+                )
+
                 ndwi_map_id_dict = geemap.ee_tile_layer(
                     ndwi_image,
                     vis_params={
-                    'min': -0.6, 
-                    'max': 0.3, 
-                    'palette': ['#a50026', '#ffffbf', '#87a6ff']
+                        'min': -0.6, 
+                        'max': 0.3, 
+                        'palette': ['#a50026', '#ffffbf', '#87a6ff']
                     },
                     name="NDWI"
-                    )
-                
+                )
+
+                # Stworzenie mapy Folium
                 m = folium.Map(location=coords, zoom_start=10, tiles="Esri.WorldImagery")
                 folium.Marker(
                     location=coords,
@@ -249,38 +221,24 @@ def main():
                 m.add_child(ndvi_map_id_dict)
                 m.add_child(ndwi_map_id_dict)
 
-
                 folium.LayerControl().add_to(m)
-                    # Store the map in session state
                 st.session_state['map'] = m
 
 
-            # Display the map from session state if available
-            if 'map' in st.session_state:
-                st_folium(st.session_state['map'], width=600, height=600)
-            
-            else:
-                st.write("Nie udało się zlokalizować adresu.")
-    
+        # Wyświetlanie mapy ze stanu sesji
+        if 'map' in st.session_state:
+            st_folium(st.session_state['map'], width=1200, height=800)
+        else:
+            st.write("Nie udało się zlokalizować adresu.")
 
-    with st.container():
-        st.subheader("NDVI - Normalized Difference Vegetation Index")
-        st.write("""
-                Wskaźnik NDVI jest narzędziem niezwykle ważnym dla rolników, pozwalającym na monitorowanie plonów oraz wykrywanie problemów związanych z niedoborem wody czy chorobami roślin. 
-                Dzięki danym pochodzącym z satelitarnej obserwacji Ziemi, rolnicy mogą uzyskać szybki i dokładny obraz stanu roślinności na swoich uprawach.
-                """)
-        
-        st.subheader("NDWI - Normalized Difference Water Index")
-        st.write("""
-                Wskaźnik NDWI służy do monitorowania zmian związanych z zawartością wody w zbiornikach wodnych. 
-                Ponieważ zbiorniki wodne silnie absorbują światło w widzialnym i podczerwonym spektrum elektromagnetycznym, NDWI wykorzystuje pasma zielone i bliskiej podczerwieni, aby wyodrębnić zbiorniki wodne. 
-                Wskaźnik ten jest czuły na tereny zurbanizowane, co może prowadzić do przeszacowania obszarów wodnych.
-                """)
-    
-    # if st.button("Generuj Mapę"):
-    #     folium.LayerControl().add_to(m)
+                        # Eksport mapy
+        if st.button("Eksportuj mapę"):
+                    m = st.session_state['map']
+                    m.save("Mapa_123.html")
+                    st.success("Mapa została zapisana jako Mapa_123.html")
 
-    #     m.save("example_123.html")
+
+
 
     with st.container():
         st.markdown('<h2 id="opady">Opady</h2>', unsafe_allow_html=True)
@@ -307,11 +265,27 @@ def main():
             st.markdown('<h2 id="polska">Polska</h2>', unsafe_allow_html=True)
             st.pyplot(fig)
 
-    # with st.container():
-    #     csv_url = "https://raw.githubusercontent.com/Ladonean/Nauka/main/Stacje.csv?raw=true"
-    #     data = load_data(csv_url)
-    #     st.dataframe(data)
-
+    with st.container():
+        st.markdown('<h2 id="informacje">Informacje</h2>', unsafe_allow_html=True)
+        
+        st.write(""" Po wybraniu adresu i interesującej daty należy nacisnąć przycisk Aktualizuj Mapę.
+                     """)
+        
+        if st.button("NDVI - Normalized Difference Vegetation Index"):
+            st.write("""
+                    Wskaźnik NDVI jest narzędziem niezwykle ważnym dla rolników, pozwalającym na monitorowanie plonów oraz wykrywanie problemów związanych z niedoborem wody czy chorobami roślin. 
+                    Dzięki danym pochodzącym z satelitarnej obserwacji Ziemi, rolnicy mogą uzyskać szybki i dokładny obraz stanu roślinności na swoich uprawach.
+                    NDVI oblicza się przy użyciu obrazów satelitarnych, które rejestrują zarówno bliską podczerwień (NIR), jak i długości fal czerwonych (R).
+                    """)
+        
+        if st.button("NDWI - Normalized Difference Water Index"):
+            st.write("""
+                    Wskaźnik NDWI służy do monitorowania zmian związanych z zawartością wody w zbiornikach wodnych. 
+                    Ponieważ zbiorniki wodne silnie absorbują światło w widzialnym i podczerwonym spektrum elektromagnetycznym, NDWI wykorzystuje pasma zielone i bliskiej podczerwieni, aby wyodrębnić zbiorniki wodne. 
+                    Wskaźnik ten jest czuły na tereny zurbanizowane, co może prowadzić do przeszacowania obszarów wodnych.
+                    NDWI oblicza się przy użyciu obrazów satelitarnych, które rejestrują zarówno bliską podczerwień (NIR), jak i długości fal zielonych (G).
+                     """)
+    
 
 
 # Uruchomienie aplikacji
