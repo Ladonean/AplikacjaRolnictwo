@@ -265,7 +265,6 @@ def main():
 
     with st.container():
         st.markdown('<h2 id="informacje">Informacje</h2>', unsafe_allow_html=True)
-        
         st.write(""" Po wybraniu adresu i interesującej daty należy nacisnąć przycisk Aktualizuj Mapę.
                      """)
         
@@ -275,6 +274,8 @@ def main():
                     Dzięki danym pochodzącym z satelitarnej obserwacji Ziemi, rolnicy mogą uzyskać szybki i dokładny obraz stanu roślinności na swoich uprawach.
                     NDVI oblicza się przy użyciu obrazów satelitarnych, które rejestrują zarówno bliską podczerwień (NIR), jak i długości fal czerwonych (R).
                     """)
+            image = Image.open("Ndvi.png")
+            st.image(image, caption="Obraz z Pillow", use_column_width=True)
         
         if st.button("NDWI - Normalized Difference Water Index"):
             st.write("""
