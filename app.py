@@ -234,7 +234,9 @@ def main():
                     m = st.session_state['map']
                     m.save("Mapa_123.html")
                     st.success("Mapa została zapisana jako Mapa_123.html")
-
+                    with open("Mapa_123.html", "r", encoding="utf-8") as file:
+                        html_data = file.read()
+                        st.download_button(label="Pobierz mapę", data=html_data, file_name="Mapa_123.html", mime="text/html")
 
 
 
