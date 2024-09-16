@@ -192,8 +192,8 @@ def main():
                 ndvi_map_id_dict = geemap.ee_tile_layer(
                     ndvi_image,
                     vis_params={
-                        'min': -0.3, 
-                        'max': 0.8,
+                        'min': -0.1, 
+                        'max': 1,
                         'palette': ['#a50026', '#d73027', '#fdae61', '#1a9850', '#006837']
                     },
                     name="NDVI"
