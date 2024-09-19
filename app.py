@@ -235,7 +235,6 @@ def main():
                             'blue',
                             'blue',
                             'darkblue',
-                            'darkblue',
                             'darkblue'
                         ]
                     },
