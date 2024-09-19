@@ -188,23 +188,6 @@ def main():
     if 'coords' not in st.session_state:
         st.session_state['coords'] = [52.237049, 21.017532]  # domyślne współrzędne (Warszawa)
 
-    m = folium.Map(location=st.session_state['coords'], zoom_start=10, tiles="Esri.WorldImagery")
-
-    folium.Marker(location=st.session_state['coords'], popup="Lokalizacja").add_to(m)
-
-    # Obsługa kliknięcia w mapę
-    m.add_child(folium.LatLngPopup()) 
-
-    output = st_folium(m, width=1200, height=800)
-        
-        
-        # Sprawdzenie, czy kliknięto na mapę i aktualizacja współrzędnych
-    if output and 'last_clicked' in output:
-        st.session_state['coords'] = [output['last_clicked']['lat'], output['last_clicked']['lng']]
-        st.write(f"Nowe współrzędne: {st.session_state['coords']}")
-
-
-
         if st.button("Aktualizuj mapę"):
                 # Pobierz obraz i inne dane
                 image, image_date, buffer = get_image(start_date, end_date, st.session_state['coords'])
@@ -263,6 +246,8 @@ def main():
 
                 folium.LayerControl().add_to(m)
                 st.session_state['map'] = m
+                
+                m.add_child(folium.LatLngPopup()) 
 
 
         # Wyświetlanie mapy ze stanu sesji
