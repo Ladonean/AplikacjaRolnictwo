@@ -233,6 +233,8 @@ def main():
                             'white',
                             'blue',
                             'blue',
+                            'blue',
+                            'darkblue',
                             'darkblue',
                             'darkblue'
                         ]
