@@ -228,12 +228,12 @@ def main():
                         'max': 1,
                         'palette': [
                             'red',
-                            'red',
-                            'red',
                             'yellow',
                             'lightyellow',
                             'white',
                             'blue',
+                            'blue',
+                            'darkblue',
                             'darkblue'
                         ]
                     },
