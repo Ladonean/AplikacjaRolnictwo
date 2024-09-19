@@ -188,7 +188,7 @@ def main():
     if 'coords' not in st.session_state:
         st.session_state['coords'] = [52.237049, 21.017532]  # domyślne współrzędne (Warszawa)
 
-        if st.button("Aktualizuj mapę"):
+    if st.button("Aktualizuj mapę"):
                 # Pobierz obraz i inne dane
                 image, image_date, buffer = get_image(start_date, end_date, st.session_state['coords'])
 
@@ -246,18 +246,18 @@ def main():
 
                 folium.LayerControl().add_to(m)
                 st.session_state['map'] = m
-                
+
                 m.add_child(folium.LatLngPopup()) 
 
 
         # Wyświetlanie mapy ze stanu sesji
-        if 'map' in st.session_state:
+    if 'map' in st.session_state:
             st_folium(st.session_state['map'], width=1200, height=800)
-        else:
+    else:
             st.write("Nie udało się zlokalizować adresu.")
 
                         # Eksport mapy
-        if st.button("Eksportuj mapę"):
+    if st.button("Eksportuj mapę"):
                     m = st.session_state['map']
                     m.save("Mapa_123.html")
                     st.success("Mapa została zapisana jako Mapa_123.html")
