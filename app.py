@@ -177,7 +177,7 @@ def main():
 
         st.markdown('<h2 id="mapa">Mapa</h2>', unsafe_allow_html=True)
         address = st.text_input("Wpisz adres:", "Czaple, Kartuzy")
-        coords =[53,18]
+        coords = geocode_address(address)
 
         if coords:
             if st.button("Aktualizuj mapę"):
