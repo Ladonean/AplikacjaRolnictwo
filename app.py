@@ -207,15 +207,19 @@ def main():
                 ndvi_map_id_dict = geemap.ee_tile_layer(
                     ndvi_image,
                     vis_params={
-                        'min': -0.2, 
+                        'min': -1,
                         'max': 1,
                         'palette': [
-                            '#eaeaea',  # -0.2 < NDVI ≤ 0
-                            '#ccc682',  # 0 < NDVI ≤ 0.2
-                            '#91bf51',  # 0.2 < NDVI ≤ 0.4
-                            '#70a33f',  # 0.4 < NDVI ≤ 0.6
-                            '#306d1c',  # 0.6 < NDVI ≤ 08
-                            '#004400'   # 0.8 < NDVI ≤ 1.0
+                            '#ff0000',
+                            '#ff0000',
+                            '#ff0000',
+                            '#ff0000',
+                            '#ff0000',  
+                            '#ff9900',  # Bare Soil (NDVI ≈ 0 - 0.2)
+                            '#ccff66',  # Light Vegetation (NDVI ≈ 0.2 - 0.4)
+                            '#66ff66',  # Moderate Vegetation (NDVI ≈ 0.4 - 0.6)
+                            '#339933',  # Strong Vegetation (NDVI ≈ 0.6 - 0.8)
+                            '#006600'   # Dense Vegetation (NDVI ≥ 0.8)
                         ]
                     },
                     name="NDVI"
