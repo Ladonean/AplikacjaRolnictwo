@@ -177,12 +177,8 @@ def main():
 
         st.markdown('<h2 id="mapa">Mapa</h2>', unsafe_allow_html=True)
         address = st.text_input("Wpisz adres:", "Czaple, Kartuzy")
-        coords = geocode_address(address)
+        st.session_state['coords'] = geocode_address(address)
 
-    if not coords:
-        st.write("Nie znaleziono adresu. Kliknij na mapę, aby wybrać lokalizację.")
-    else:
-        st.session_state['coords'] = coords
 
     # Tworzenie mapy Folium
     if 'coords' not in st.session_state:
