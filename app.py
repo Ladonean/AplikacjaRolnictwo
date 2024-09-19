@@ -210,20 +210,21 @@ def main():
                         'min': -1,
                         'max': 1,
                         'palette': [
-                            '#ff0000',
-                            '#ff0000',
-                            '#ff0000',
-                            '#ff0000',
-                            '#ff0000',  
-                            '#ff9900',  # Bare Soil (NDVI ≈ 0 - 0.2)
-                            '#ccff66',  # Light Vegetation (NDVI ≈ 0.2 - 0.4)
-                            '#66ff66',  # Moderate Vegetation (NDVI ≈ 0.4 - 0.6)
-                            '#339933',  # Strong Vegetation (NDVI ≈ 0.6 - 0.8)
-                            '#006600'   # Dense Vegetation (NDVI ≥ 0.8)
+                            '#ffcccc',  # Delikatniejszy czerwony dla wartości NDVI ≤ 0 (Absent Vegetation)
+                            '#ffcccc',  # Delikatniejszy czerwony dla wartości NDVI ≤ 0
+                            '#ffcccc',  # Delikatniejszy czerwony dla wartości NDVI ≤ 0
+                            '#ffcccc',  # Delikatniejszy czerwony dla wartości NDVI ≤ 0
+                            '#ffcccc',  # Delikatniejszy czerwony dla wartości NDVI ≤ 0
+                            '#ffd699',  # Delikatny pomarańczowy dla Bare Soil (NDVI ≈ 0 - 0.2)
+                            '#e6ffcc',  # Delikatny jasnozielony dla Light Vegetation (NDVI ≈ 0.2 - 0.4)
+                            '#b3ffb3',  # Delikatny zielony dla Moderate Vegetation (NDVI ≈ 0.4 - 0.6)
+                            '#99cc99',  # Delikatny ciemniejszy zielony dla Strong Vegetation (NDVI ≈ 0.6 - 0.8)
+                            '#669966'   # Delikatny ciemnozielony dla Dense Vegetation (NDVI ≥ 0.8)
                         ]
                     },
                     name="NDVI"
                 )
+
                 
                 ndwi_map_id_dict = geemap.ee_tile_layer(
                     ndwi_image,
