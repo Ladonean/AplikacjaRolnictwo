@@ -179,10 +179,35 @@ def main():
         address = st.text_input("Wpisz adres:", "Czaple, Kartuzy")
         coords = geocode_address(address)
 
-        if coords:
-            if st.button("Aktualizuj mapę"):
+    if not coords:
+        st.write("Nie znaleziono adresu. Kliknij na mapę, aby wybrać lokalizację.")
+    else:
+        st.session_state['coords'] = coords
+
+    # Tworzenie mapy Folium
+    if 'coords' not in st.session_state:
+        st.session_state['coords'] = [52.237049, 21.017532]  # domyślne współrzędne (Warszawa)
+
+    m = folium.Map(location=st.session_state['coords'], zoom_start=10, tiles="Esri.WorldImagery")
+
+    folium.Marker(location=st.session_state['coords'], popup="Lokalizacja").add_to(m)
+
+    # Obsługa kliknięcia w mapę
+    m.add_child(folium.LatLngPopup()) 
+
+    output = st_folium(m, width=1200, height=800)
+        
+        
+        # Sprawdzenie, czy kliknięto na mapę i aktualizacja współrzędnych
+    if output and 'last_clicked' in output:
+        st.session_state['coords'] = [output['last_clicked']['lat'], output['last_clicked']['lng']]
+        st.write(f"Nowe współrzędne: {st.session_state['coords']}")
+
+
+
+        if st.button("Aktualizuj mapę"):
                 # Pobierz obraz i inne dane
-                image, image_date, buffer = get_image(start_date, end_date, coords)
+                image, image_date, buffer = get_image(start_date, end_date, st.session_state['coords'])
 
                 # Obliczanie NDVI i NDWI dla wybranego obrazu
                 ndvi_image = image.normalizedDifference(['B5', 'B4']).rename('NDVI').clip(buffer)
