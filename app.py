@@ -59,7 +59,7 @@ def get_image(start_date, end_date, coords):
     # Pobieranie kolekcji obrazów Landsat 8 (Collection 2 Level 2)
 
     point = ee.Geometry.Point([coords[1], coords[0]])
-    buffer = point.buffer(10000)
+    buffer = point.buffer(1000)
     collection = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED") \
         .filterDate(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')) \
         .filterBounds(buffer)
