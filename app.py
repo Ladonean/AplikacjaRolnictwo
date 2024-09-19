@@ -180,9 +180,6 @@ def main():
         st.session_state['coords'] = geocode_address(address)
 
 
-    # Tworzenie mapy Folium
-    if 'coords' not in st.session_state:
-        st.session_state['coords'] = [52.237049, 21.017532]  # domyślne współrzędne (Warszawa)
 
     if st.button("Aktualizuj mapę"):
                 # Pobierz obraz i inne dane
@@ -243,7 +240,11 @@ def main():
                 folium.LayerControl().add_to(m)
                 st.session_state['map'] = m
 
-                m.add_child(folium.LatLngPopup()) 
+                m.add_child(folium.LatLngPopup())
+                
+                if m and 'last_clicked' in m:
+                    st.session_state['coords'] = [m['last_clicked']['lat'], m['last_clicked']['lng']]
+                    st.write(f"Nowe współrzędne: {st.session_state['coords']}") 
 
 
         # Wyświetlanie mapy ze stanu sesji
@@ -252,7 +253,7 @@ def main():
     else:
             st.write("Nie udało się zlokalizować adresu.")
 
-                        # Eksport mapy
+
     if st.button("Eksportuj mapę"):
                     m = st.session_state['map']
                     m.save("Mapa_123.html")
