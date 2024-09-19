@@ -18,6 +18,7 @@ from scipy.interpolate import Rbf
 import matplotlib.pyplot as plt
 import json
 from google.oauth2 import service_account
+import re
 
 # st.set_page_config(
 #     page_title="Aplikacja Rolnictwo",
@@ -41,10 +42,21 @@ ee.Initialize(credentials)
 # ee.Authenticate() 
 # ee.Initialize(project='ee-ladone')
 
-
+def is_coordinates(address):
+    pattern = r"Latitude:\s*(-?\d+\.\d+)\s*Longitude:\s*(-?\d+\.\d+)"
+    match = re.match(pattern, address)
+    if match:
+        latitude = float(match.group(1))
+        longitude = float(match.group(2))
+        return [latitude, longitude]
+    return None
 
 # Funkcja do geokodowania adresu
 def geocode_address(address):
+    coords = is_coordinates(address)
+    if coords:
+        return coords
+        
     geolocator = Photon(user_agent="app",timeout=10)
     try:
         location = geolocator.geocode(address)
