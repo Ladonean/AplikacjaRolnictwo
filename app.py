@@ -205,13 +205,23 @@ def main():
                     },
                     name="NDVI"
                 )
-
+                
                 ndwi_map_id_dict = geemap.ee_tile_layer(
                     ndwi_image,
                     vis_params={
-                        'min': -0.6, 
-                        'max': 0.3, 
-                        'palette': ['#a50026', '#ffffbf', '#87a6ff']
+                        'min': -1, 
+                        'max': 1,
+                        'palette': [
+                            '#ff0000',  # -1 ≤ NDWI ≤ -0.8 (czerwony)
+                            '#ff4000',  # -0.8 < NDWI ≤ -0.6 (pomarańczowy)
+                            '#ff8000',  # -0.6 < NDWI ≤ -0.4 (pomarańczowo-żółty)
+                            '#ffbf00',  # -0.4 < NDWI ≤ -0.2 (żółty)
+                            '#00ff00',  # 0.0 ≤ NDWI ≤ 0.2 (zielony)
+                            '#00ffff',  # 0.2 < NDWI ≤ 0.4 (cyjan)
+                            '#00bfff',  # 0.4 < NDWI ≤ 0.6 (jasny niebieski)
+                            '#0080ff',  # 0.6 < NDWI ≤ 0.8 (niebieski)
+                            '#0000ff',  # 0.8 < NDWI ≤ 1.0 (ciemny niebieski)
+                        ]
                     },
                     name="NDWI"
                 )
