@@ -233,7 +233,7 @@ def main():
                 # Stworzenie mapy Folium
                 m = folium.Map(location=st.session_state['coords'], zoom_start=10, tiles="Esri.WorldImagery")
                 folium.Marker(
-                    location=coords,
+                    location=st.session_state['coords'],
                     popup=address,
                 ).add_to(m)
 
