@@ -216,7 +216,7 @@ def main():
                             '#ff4000',  # -0.8 < NDWI ≤ -0.6 (pomarańczowy)
                             '#ff8000',  # -0.6 < NDWI ≤ -0.4 (pomarańczowo-żółty)
                             '#ffbf00',  # -0.4 < NDWI ≤ -0.2 (żółty)
-                            '#00ff00',  # 0.0 ≤ NDWI ≤ 0.2 (zielony)
+                            '#99ff99',  # 0.0 ≤ NDWI ≤ 0.2 (delikatny zielony, pastelowy)
                             '#00ffff',  # 0.2 < NDWI ≤ 0.4 (cyjan)
                             '#00bfff',  # 0.4 < NDWI ≤ 0.6 (jasny niebieski)
                             '#0080ff',  # 0.6 < NDWI ≤ 0.8 (niebieski)
