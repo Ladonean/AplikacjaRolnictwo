@@ -225,10 +225,8 @@ def main():
                         'min': -1, 
                         'max': 1,
                         'palette': [
-                            'red',
-                            'yellow',
-                            'green', 
-                            'cyan',
+                            'green',
+                            'white',
                             'blue'
                         ]
                     },
