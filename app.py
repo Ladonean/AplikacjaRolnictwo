@@ -67,11 +67,11 @@ def geocode_address(address):
     except GeocoderTimedOut:
         return None
 
-def get_image(start_date, end_date, coords):
+def get_image(start_date, end_date, coords, buffer_radius):
     # Pobieranie kolekcji obrazów Landsat 8 (Collection 2 Level 2)
 
     point = ee.Geometry.Point([coords[1], coords[0]])
-    buffer = point.buffer(1000)
+    buffer = point.buffer(buffer_radius)
     collection = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED") \
         .filterDate(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')) \
         .filterBounds(buffer)
@@ -190,11 +190,14 @@ def main():
         st.markdown('<h2 id="mapa">Mapa</h2>', unsafe_allow_html=True)
         address = st.text_input("Wpisz adres:", "Czaple, Kartuzy")
         coords = geocode_address(address)
+        
+        buffer_radius = st.slider('Wybierz promień buffera (w metrach):', min_value=100, max_value=5000, value=1000, step=100)
+
 
         if coords:
             if st.button("Aktualizuj mapę"):
                 # Pobierz obraz i inne dane
-                image, image_date, buffer = get_image(start_date, end_date, coords)
+                image, image_date, buffer = get_image(start_date, end_date, coords, buffer_radius)
 
                 # Obliczanie NDVI i NDWI dla wybranego obrazu
                 ndvi_image = image.normalizedDifference(['B5', 'B4']).rename('NDVI').clip(buffer)
