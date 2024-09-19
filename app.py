@@ -201,7 +201,7 @@ def main():
 
                 # Obliczanie NDVI i NDWI dla wybranego obrazu
                 ndvi_image = image.normalizedDifference(['B5', 'B4']).rename('NDVI').clip(buffer)
-                ndwi_image = image.normalizedDifference(['B3', 'B5']).rename('NDWI').clip(buffer)
+                ndwi_image = image.normalizedDifference(['B3', 'B8']).rename('NDWI').clip(buffer)
 
                 # Stworzenie warstw do mapy
                 ndvi_map_id_dict = geemap.ee_tile_layer(
