@@ -226,7 +226,9 @@ def main():
                         'max': 1,
                         'palette': [
                             'red',
+                            'yellow',
                             'green', 
+                            'cyan',
                             'blue'
                         ]
                     },
