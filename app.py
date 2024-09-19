@@ -229,6 +229,7 @@ def main():
                         'palette': [
                             'red',
                             'yellow',
+                            'lightyellow',
                             'white',
                             'blue',
                             'darkblue'
