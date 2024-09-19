@@ -177,26 +177,12 @@ def main():
 
         st.markdown('<h2 id="mapa">Mapa</h2>', unsafe_allow_html=True)
         address = st.text_input("Wpisz adres:", "Czaple, Kartuzy")
-    if 'coords' not in st.session_state:
-        st.session_state['coords'] = geocode_address(address) or [52.237049, 21.017532]  # domyślne współrzędne
+        coords = geocode_address(address)
 
-    # Tworzenie mapy Folium
-    m = folium.Map(location=st.session_state['coords'], zoom_start=10, tiles="Esri.WorldImagery")
-    folium.Marker(location=st.session_state['coords'], popup=address).add_to(m)
-
-    # Obsługa kliknięcia w mapę
-    output = st_folium(m, width=1200, height=800)
-
-    # Sprawdzanie, czy kliknięto na mapę i aktualizacja współrzędnych
-    if output and 'last_clicked' in output:
-        st.session_state['coords'] = [output['last_clicked']['lat'], output['last_clicked']['lng']]
-        st.write(f"Nowe współrzędne: {st.session_state['coords']}")
-
-
-
-    if st.button("Aktualizuj mapę"):
+        if coords:
+            if st.button("Aktualizuj mapę"):
                 # Pobierz obraz i inne dane
-                image, image_date, buffer = get_image(start_date, end_date, st.session_state['coords'])
+                image, image_date, buffer = get_image(start_date, end_date, coords)
 
                 # Obliczanie NDVI i NDWI dla wybranego obrazu
                 ndvi_image = image.normalizedDifference(['B5', 'B4']).rename('NDVI').clip(buffer)
@@ -241,22 +227,27 @@ def main():
                 )
 
                 # Stworzenie mapy Folium
-                m = folium.Map(location=st.session_state['coords'], zoom_start=10, tiles="Esri.WorldImagery")
-                folium.Marker(location=st.session_state['coords'], popup=address).add_to(m)
+                m = folium.Map(location=coords, zoom_start=10, tiles="Esri.WorldImagery")
+                folium.Marker(
+                    location=coords,
+                    popup=address,
+                ).add_to(m)
+
                 m.add_child(ndvi_map_id_dict)
                 m.add_child(ndwi_map_id_dict)
+
                 folium.LayerControl().add_to(m)
                 st.session_state['map'] = m
 
 
-    # Wyświetlanie zaktualizowanej mapy
-    if 'map' in st.session_state:
-        st_folium(st.session_state['map'], width=1200, height=800)
-    else:
-        st.write("Nie udało się zlokalizować adresu.")
+        # Wyświetlanie mapy ze stanu sesji
+        if 'map' in st.session_state:
+            st_folium(st.session_state['map'], width=1200, height=800)
+        else:
+            st.write("Nie udało się zlokalizować adresu.")
 
-
-    if st.button("Eksportuj mapę"):
+                        # Eksport mapy
+        if st.button("Eksportuj mapę"):
                     m = st.session_state['map']
                     m.save("Mapa_123.html")
                     st.success("Mapa została zapisana jako Mapa_123.html")
