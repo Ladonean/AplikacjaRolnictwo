@@ -238,6 +238,7 @@ def main():
 
                 folium.LayerControl().add_to(m)
                 st.session_state['map'] = m
+                m.add_child(folium.LatLngPopup())
 
 
         # Wyświetlanie mapy ze stanu sesji
