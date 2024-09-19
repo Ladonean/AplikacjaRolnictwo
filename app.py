@@ -242,7 +242,7 @@ def main():
                 )
 
                 # Stworzenie mapy Folium
-                m = folium.Map(location=coords, zoom_start=10, tiles="Esri.WorldImagery")
+                m = folium.Map(location=coords, zoom_start=20, tiles="Esri.WorldImagery")
                 folium.Marker(
                     location=coords,
                     popup=address,
