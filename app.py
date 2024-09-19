@@ -230,7 +230,7 @@ def main():
                             'red',
                             'yellow',
                             'lightyellow',
-                            'green',
+                            'white',
                             'blue',
                             'blue',
                             'darkblue',
