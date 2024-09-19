@@ -212,15 +212,15 @@ def main():
                         'min': -1, 
                         'max': 1,
                         'palette': [
-                            '#ff0000',  # -1 ≤ NDWI ≤ -0.8 (czerwony)
-                            '#ff4000',  # -0.8 < NDWI ≤ -0.6 (pomarańczowy)
-                            '#ff8000',  # -0.6 < NDWI ≤ -0.4 (pomarańczowo-żółty)
-                            '#ffbf00',  # -0.4 < NDWI ≤ -0.2 (żółty)
-                            '#99ff99',  # 0.0 ≤ NDWI ≤ 0.2 (delikatny zielony, pastelowy)
-                            '#00ffff',  # 0.2 < NDWI ≤ 0.4 (cyjan)
-                            '#00bfff',  # 0.4 < NDWI ≤ 0.6 (jasny niebieski)
-                            '#0080ff',  # 0.6 < NDWI ≤ 0.8 (niebieski)
-                            '#0000ff',  # 0.8 < NDWI ≤ 1.0 (ciemny niebieski)
+                            '#ff9999',  # -1 ≤ NDWI ≤ -0.8 (delikatny czerwony)
+                            '#ffb380',  # -0.8 < NDWI ≤ -0.6 (delikatny pomarańczowy)
+                            '#ffd480',  # -0.6 < NDWI ≤ -0.4 (delikatny pomarańczowo-żółty)
+                            '#ffeb99',  # -0.4 < NDWI ≤ -0.2 (delikatny żółty)
+                            '#b3ffb3',  # 0.0 ≤ NDWI ≤ 0.2 (delikatny zielony, pastelowy)
+                            '#b3ffff',  # 0.2 < NDWI ≤ 0.4 (delikatny cyjan)
+                            '#b3e6ff',  # 0.4 < NDWI ≤ 0.6 (delikatny jasny niebieski)
+                            '#99ccff',  # 0.6 < NDWI ≤ 0.8 (delikatny niebieski)
+                            '#9999ff'   # 0.8 < NDWI ≤ 1.0 (delikatny ciemny niebieski)
                         ]
                     },
                     name="NDWI"
