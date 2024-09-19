@@ -177,7 +177,20 @@ def main():
 
         st.markdown('<h2 id="mapa">Mapa</h2>', unsafe_allow_html=True)
         address = st.text_input("Wpisz adres:", "Czaple, Kartuzy")
-        st.session_state['coords'] = geocode_address(address)
+    if 'coords' not in st.session_state:
+        st.session_state['coords'] = geocode_address(address) or [52.237049, 21.017532]  # domyślne współrzędne
+
+    # Tworzenie mapy Folium
+    m = folium.Map(location=st.session_state['coords'], zoom_start=10, tiles="Esri.WorldImagery")
+    folium.Marker(location=st.session_state['coords'], popup=address).add_to(m)
+
+    # Obsługa kliknięcia w mapę
+    output = st_folium(m, width=1200, height=800)
+
+    # Sprawdzanie, czy kliknięto na mapę i aktualizacja współrzędnych
+    if output and 'last_clicked' in output:
+        st.session_state['coords'] = [output['last_clicked']['lat'], output['last_clicked']['lng']]
+        st.write(f"Nowe współrzędne: {st.session_state['coords']}")
 
 
 
@@ -229,29 +242,18 @@ def main():
 
                 # Stworzenie mapy Folium
                 m = folium.Map(location=st.session_state['coords'], zoom_start=10, tiles="Esri.WorldImagery")
-                folium.Marker(
-                    location=st.session_state['coords'],
-                    popup=address,
-                ).add_to(m)
-
+                folium.Marker(location=st.session_state['coords'], popup=address).add_to(m)
                 m.add_child(ndvi_map_id_dict)
                 m.add_child(ndwi_map_id_dict)
-
                 folium.LayerControl().add_to(m)
                 st.session_state['map'] = m
 
-                m.add_child(folium.LatLngPopup())
-                
-                if st.session_state['map'] and 'last_clicked' in st.session_state['map']:
-                    st.session_state['coords'] = [st.session_state['map']['last_clicked']['lat'], st.session_state['map']['last_clicked']['lng']]
-                    st.write(f"Nowe współrzędne: {st.session_state['coords']}") 
 
-
-        # Wyświetlanie mapy ze stanu sesji
+    # Wyświetlanie zaktualizowanej mapy
     if 'map' in st.session_state:
-            st_folium(st.session_state['map'], width=1200, height=800)
+        st_folium(st.session_state['map'], width=1200, height=800)
     else:
-            st.write("Nie udało się zlokalizować adresu.")
+        st.write("Nie udało się zlokalizować adresu.")
 
 
     if st.button("Eksportuj mapę"):
