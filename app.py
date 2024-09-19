@@ -210,7 +210,11 @@ def main():
                         'min': -1,
                         'max': 1,
                         'palette': [
-                         'viridis'
+                            'red',
+                            'yellow',
+                            'white',
+                            'green',
+                            'darkgreen'
                         ]
                     },
                     name="NDVI"
@@ -223,9 +227,11 @@ def main():
                         'min': -1, 
                         'max': 1,
                         'palette': [
-                            'green',
+                            'red',
+                            'yellow',
                             'white',
-                            'blue'
+                            'blue',
+                            'darkblue'
                         ]
                     },
                     name="NDWI"
