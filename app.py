@@ -242,8 +242,8 @@ def main():
 
                 m.add_child(folium.LatLngPopup())
                 
-                if m and 'last_clicked' in m:
-                    st.session_state['coords'] = [m['last_clicked']['lat'], m['last_clicked']['lng']]
+                if st.session_state['map'] and 'last_clicked' in st.session_state['map']:
+                    st.session_state['coords'] = [st.session_state['map']['last_clicked']['lat'], st.session_state['map']['last_clicked']['lng']]
                     st.write(f"Nowe współrzędne: {st.session_state['coords']}") 
 
 
