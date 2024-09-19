@@ -210,16 +210,9 @@ def main():
                         'min': -1,
                         'max': 1,
                         'palette': [
-                            '#f75e5e',  # Delikatniejszy czerwony dla wartości NDVI ≤ 0 (Absent Vegetation)
-                            '#f75e5e',  # Delikatniejszy czerwony dla wartości NDVI ≤ 0
-                            '#f75e5e',  # Delikatniejszy czerwony dla wartości NDVI ≤ 0
-                            '#f75e5e',  # Delikatniejszy czerwony dla wartości NDVI ≤ 0
-                            '#f75e5e',  # Delikatniejszy czerwony dla wartości NDVI ≤ 0
-                            '#ffd699',  # Delikatny pomarańczowy dla Bare Soil (NDVI ≈ 0 - 0.2)
-                            '#a7eba7',  # Delikatny jasnozielony dla Light Vegetation (NDVI ≈ 0.2 - 0.4)
-                            '#b3ffb3',  # Delikatny zielony dla Moderate Vegetation (NDVI ≈ 0.4 - 0.6)
-                            '#72c472',  # Delikatny ciemniejszy zielony dla Strong Vegetation (NDVI ≈ 0.6 - 0.8)
-                            '#1c3d1c'   # Delikatny ciemnozielony dla Dense Vegetation (NDVI ≥ 0.8)
+                            'blue',
+                            'white', 
+                            'green'
                         ]
                     },
                     name="NDVI"
@@ -232,15 +225,9 @@ def main():
                         'min': -1, 
                         'max': 1,
                         'palette': [
-                            '#e35656',  # -1 ≤ NDWI ≤ -0.8 (delikatny czerwony)
-                            '#ffb380',  # -0.8 < NDWI ≤ -0.6 (delikatny pomarańczowy)
-                            '#ffd480',  # -0.6 < NDWI ≤ -0.4 (delikatny pomarańczowo-żółty)
-                            '#8ae38a',  # -0.4 < NDWI ≤ -0.2 (delikatny żółty)
-                            '#b3ffb3',  # 0.0 ≤ NDWI ≤ 0.2 (delikatny zielony, pastelowy)
-                            '#b3e6ff',  # 0.2 < NDWI ≤ 0.4 (delikatny cyjan)
-                            '#b3e6ff',  # 0.4 < NDWI ≤ 0.6 (delikatny jasny niebieski)
-                            '#3b64c4',  # 0.6 < NDWI ≤ 0.8 (delikatny niebieski)
-                            '#2b2bd6'   # 0.8 < NDWI ≤ 1.0 (delikatny ciemny niebieski)
+                            'red',
+                            'green', 
+                            'blue'
                         ]
                     },
                     name="NDWI"
