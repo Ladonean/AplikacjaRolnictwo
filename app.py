@@ -128,9 +128,15 @@ def merge_data(location_data, rain_data, selected_date):
     merged_data = location_data.merge(rain_data_filtered, on='Stacja', how='inner')
 
     merged_data['Opady'] = pd.to_numeric(merged_data['Opady'], errors='coerce')
-    df_suma = merged_data.groupby('Stacja')['Opady'].sum().reset_index()
-    df_suma['Opady'] = df_suma['Opady'].astype(float)
-    return df_suma
+    merged_data = merged_data.groupby('Stacja').agg({
+        'Opady': 'sum',                # Sumuj wartości opadów
+        'X': 'first',
+        'Y': 'first',
+        'Rok': 'first',
+        'Miesiąc': 'first',   
+
+    }).reset_index()
+    return merged_data
 
 def plot_wynik(path_shp, Wynik, title):
     X = np.column_stack([Wynik['X'], Wynik['Y']])
@@ -151,7 +157,9 @@ def plot_wynik(path_shp, Wynik, title):
 
     fig, ax = plt.subplots()
     granica.plot(facecolor='none', edgecolor='black', linewidth=1.5, zorder=5, ax=ax)
-    cbar = ax.contourf(X_siatka, Y_siatka, Z_siatka, cmap='YlGnBu', levels=np.arange(0, 100, 10))
+    colors = [(0, "yellow"), (0.1, "lightyellow"), (0.2, "#d9ffdb"), (0.4, "#bfffd1"), (0.6, "lightblue"), (1, "blue")]  # (wartość, kolor)
+    my_cmap = LinearSegmentedColormap.from_list("my_cmap", colors)
+    cbar = ax.contourf(X_siatka, Y_siatka, Z_siatka, cmap=my_cmap, levels=np.arange(0, 120, 10), extend = 'max')
     cax = fig.add_axes([0.93, 0.134, 0.02, 0.72])
     colorbar = plt.colorbar(cbar, cax=cax, orientation='vertical')
 
