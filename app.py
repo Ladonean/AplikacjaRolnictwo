@@ -19,6 +19,7 @@ import matplotlib.pyplot as plt
 import json
 from google.oauth2 import service_account
 import re
+from matplotlib.colors import LinearSegmentedColormap
 
 # st.set_page_config(
 #     page_title="Aplikacja Rolnictwo",
