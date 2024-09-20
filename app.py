@@ -181,6 +181,7 @@ def main():
                 - [Opady](#opady)
                 - [Polska](#polska)
                 - [Infromacje](#informacje)
+                - [Samouczek](#samouczek)
             """)
 
     with st.container():
@@ -325,7 +326,11 @@ def main():
                     Wskaźnik ten jest czuły na tereny zurbanizowane, co może prowadzić do przeszacowania obszarów wodnych.
                     NDWI oblicza się przy użyciu obrazów satelitarnych, które rejestrują zarówno bliską podczerwień (NIR), jak i długości fal zielonych (G).
                      """)
-    
+            
+        with st.container():
+        st.markdown('<h2 id="samouczek">Samouczek</h2>', unsafe_allow_html=True)
+        st.write(""" Po wybraniu adresu i interesującej daty należy nacisnąć przycisk Aktualizuj Mapę.
+                     """)
 
 
 # Uruchomienie aplikacji
