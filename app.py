@@ -241,7 +241,7 @@ def main():
                             'red',
                             'yellow',
                             'white',
-                            'blue'
+                            'blue',
                             'blue'
                         ]
                     },
