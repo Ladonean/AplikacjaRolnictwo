@@ -121,8 +121,7 @@ def wczytaj_stacje(url):
 def merge_data(location_data, rain_data, selected_date):
     rain_data_filtered = rain_data[
         (rain_data['Rok'] == selected_date.year) &
-        (rain_data['Miesiąc'] == selected_date.month) &
-        (rain_data['Dzień'] == selected_date.day)
+        (rain_data['Miesiąc'] == selected_date.month)
     ]
     location_data['Stacja'] = location_data['Stacja'].str.strip()
     rain_data_filtered.loc[:, 'Stacja'] = rain_data_filtered['Stacja'].str.strip()
