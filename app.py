@@ -316,8 +316,8 @@ def main():
                     Znormalizowany różnicowy wskaźnik wegetacji to wskaźnik stosowany w pomiarach teledetekcyjnych, pozwalający określić stan rozwojowy oraz kondycję roślinności. 
                     Jego wartości skorelowane są z ilością biomasy i zawartością chlorofilu. Do obliczenia wskaźnika NDVI wykorzystuje się wartości odbicia w zakresie czerwonym światła widzialnego oraz bliskiej podczerwieni.
                     """)
-            image = Image.open("Ndvi.png")
-            st.image(image, caption="Obraz z Pillow", use_column_width=True)
+            image = Image.open("NDVI.png")
+            st.image(image, caption="Źródło własne", use_column_width=True)
         
         if st.button("NDWI - Normalized Difference Water Index"):
             st.write("""
@@ -326,6 +326,8 @@ def main():
                     Wskaźnik ten jest czuły na tereny zurbanizowane, co może prowadzić do przeszacowania obszarów wodnych.
                     NDWI oblicza się przy użyciu obrazów satelitarnych, które rejestrują zarówno bliską podczerwień (NIR), jak i długości fal zielonych (G).
                      """)
+            image = Image.open("NDWI.png")
+            st.image(image, caption="Źródło własne", use_column_width=True)
             
     with st.container():
         st.markdown('<h2 id="samouczek">Samouczek</h2>', unsafe_allow_html=True)
