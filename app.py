@@ -212,7 +212,7 @@ def main():
 
                 # Obliczanie NDVI i NDWI dla wybranego obrazu
                 ndvi_image = image.normalizedDifference(['B8', 'B4']).rename('NDVI').clip(buffer)
-                ndwi_image = image.normalizedDifference(['B3', 'B8']).rename('NDWI').clip(buffer)
+                ndwi_image = image.normalizedDifference(['B8', 'B12']).rename('NDWI').clip(buffer)
 
                 # Stworzenie warstw do mapy
                 ndvi_map_id_dict = geemap.ee_tile_layer(
@@ -235,8 +235,8 @@ def main():
                 ndwi_map_id_dict = geemap.ee_tile_layer(
                     ndwi_image,
                     vis_params={
-                        'min': -1, 
-                        'max': 1,
+                        'min': 0, 
+                        'max': 1,:
                         'palette': [
                             'red',
                             'yellow',
@@ -313,8 +313,12 @@ def main():
         
         if st.button("NDVI - Normalized Difference Vegetation Index"):
             st.write("""
-                    Znormalizowany różnicowy wskaźnik wegetacji to wskaźnik stosowany w pomiarach teledetekcyjnych, pozwalający określić stan rozwojowy oraz kondycję roślinności. 
-                    Jego wartości skorelowane są z ilością biomasy i zawartością chlorofilu. Do obliczenia wskaźnika NDVI wykorzystuje się wartości odbicia w zakresie czerwonym światła widzialnego oraz bliskiej podczerwieni.
+                    Znormalizowany różnicowy wskaźnik wegetacji to wskaźnik stosowany w pomiarach teledetekcyjnych, pozwalający określić stan rozwojowy oraz kondycję roślinności. NDVI pozwala zdefiniować i zwizualizować obszary porośnięte roślinnością, a także wykryć nieprawidłowe zmiany w procesie wzrostu roślin.
+                    Jego wartości skorelowane są z ilością biomasy i zawartością chlorofilu. Do obliczenia wskaźnika NDVI wykorzystuje się wartości odbicia w zakresie czerwonym światła widzialnego oraz bliskiej podczerwieni. 
+                    Wartości wskaźnika NDVI zawierają się w zakresie od -1 do 1. Wartości wskaźnika NDVI zbliżone do -1 występują na obszarach pokrytych wodą. Wartości z zakresu od -0,1 do 0,1 występują na obszarach odkrytej gleby bez pokrywy roślinnej. 
+                    Wartości wskaźnika NDVI z zakresu od 0,2 do 0,4 są charakterystyczne dla obszarów pokrytych roślinnością będącą w początkowej fazie rozwoju lub słabej kondycji. 
+                    Wartości wskaźnika NDVI >0.6 uznawane są za wskaźnik zdrowej roślinności o wysokiej witalności. 
+                    Natomiast NDVI zbliżone do 1 są charakterystyczne dla roślin będących w najwyższej fazie rozwoju, w bardzo dobrym stanie zdrowotnym
                     """)
             image = Image.open("NDVI.png")
             st.image(image, caption="Źródło własne", use_column_width=True)
@@ -324,7 +328,8 @@ def main():
                     Wskaźnik NDWI służy do monitorowania zmian związanych z zawartością wody w zbiornikach wodnych. 
                     Ponieważ zbiorniki wodne silnie absorbują światło w widzialnym i podczerwonym spektrum elektromagnetycznym, NDWI wykorzystuje pasma zielone i bliskiej podczerwieni, aby wyodrębnić zbiorniki wodne. 
                     Wskaźnik ten jest czuły na tereny zurbanizowane, co może prowadzić do przeszacowania obszarów wodnych.
-                    NDWI oblicza się przy użyciu obrazów satelitarnych, które rejestrują zarówno bliską podczerwień (NIR), jak i długości fal zielonych (G).
+                    NDWI oblicza się przy użyciu obrazów satelitarnych, które rejestrują zarówno bliską podczerwień (NIR), jak i długości fal zielonych (G). Do oceny stanu środowiska przydatne mogą być również wskaźniki wodne, które mogą wskazać przyczynę gorszej kondycji roślinności wynikającą z deficytu lub nadmiaru wody. 
+                    Do najbardziej popularnych należy wskaźnik NDWI, czyli znormalizowany różnicowy wskaźnik wody (Normalized Difference Water Index; Gao 19964) informujący o stanie (zmianach) zawartości wody (absorpcja promieniowania SWIR) i miękiszu gąbczastego w koronach roślinnych (NIR).
                      """)
             image = Image.open("NDWI.png")
             st.image(image, caption="Źródło własne", use_column_width=True)
