@@ -236,7 +236,7 @@ def main():
                     ndwi_image,
                     vis_params={
                         'min': 0, 
-                        'max': 1,:
+                        'max': 1,
                         'palette': [
                             'red',
                             'yellow',
