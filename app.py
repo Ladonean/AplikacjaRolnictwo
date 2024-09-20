@@ -126,7 +126,11 @@ def merge_data(location_data, rain_data, selected_date):
     location_data['Stacja'] = location_data['Stacja'].str.strip()
     rain_data_filtered.loc[:, 'Stacja'] = rain_data_filtered['Stacja'].str.strip()
     merged_data = location_data.merge(rain_data_filtered, on='Stacja', how='inner')
-    return merged_data
+
+    merged_data['Opady'] = pd.to_numeric(tabela['Opady'], errors='coerce')
+    df_suma = tabela.groupby('Stacja')['Opady'].sum().reset_index()
+    df_suma['Opady'] = df_suma['Opady'].astype(float)
+    return df_suma
 
 def plot_wynik(path_shp, Wynik, title):
     X = np.column_stack([Wynik['X'], Wynik['Y']])
