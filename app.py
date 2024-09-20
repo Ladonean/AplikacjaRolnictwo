@@ -210,8 +210,8 @@ def main():
                         'min': -1,
                         'max': 1,
                         'palette': [
-                            'red',
-                            'yellow',
+                            'blue',
+                            'ligthblue',
                             'white',
                             'green',
                             'darkgreen'
@@ -232,8 +232,6 @@ def main():
                             'lightyellow',
                             'white',
                             'blue',
-                            'blue',
-                            'darkblue',
                             'darkblue'
                         ]
                     },
@@ -304,9 +302,8 @@ def main():
         
         if st.button("NDVI - Normalized Difference Vegetation Index"):
             st.write("""
-                    Wskaźnik NDVI jest narzędziem niezwykle ważnym dla rolników, pozwalającym na monitorowanie plonów oraz wykrywanie problemów związanych z niedoborem wody czy chorobami roślin. 
-                    Dzięki danym pochodzącym z satelitarnej obserwacji Ziemi, rolnicy mogą uzyskać szybki i dokładny obraz stanu roślinności na swoich uprawach.
-                    NDVI oblicza się przy użyciu obrazów satelitarnych, które rejestrują zarówno bliską podczerwień (NIR), jak i długości fal czerwonych (R).
+                    Znormalizowany różnicowy wskaźnik wegetacji to wskaźnik stosowany w pomiarach teledetekcyjnych, pozwalający określić stan rozwojowy oraz kondycję roślinności. 
+                    Jego wartości skorelowane są z ilością biomasy i zawartością chlorofilu. Do obliczenia wskaźnika NDVI wykorzystuje się wartości odbicia w zakresie czerwonym światła widzialnego oraz bliskiej podczerwieni.
                     """)
             image = Image.open("Ndvi.png")
             st.image(image, caption="Obraz z Pillow", use_column_width=True)
