@@ -235,7 +235,7 @@ def main():
                 ndwi_map_id_dict = geemap.ee_tile_layer(
                     ndwi_image,
                     vis_params={
-                        'min': 0, 
+                        'min': -1,
                         'max': 1,
                         'palette': [
                             'red',
