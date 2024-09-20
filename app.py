@@ -211,7 +211,7 @@ def main():
                         'max': 1,
                         'palette': [
                             'blue',
-                            'ligthblue',
+                            'lightblue',
                             'white',
                             'green',
                             'darkgreen'
