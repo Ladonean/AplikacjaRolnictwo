@@ -148,7 +148,7 @@ def plot_wynik(path_shp, Wynik, title):
 
     fig, ax = plt.subplots()
     granica.plot(facecolor='none', edgecolor='black', linewidth=1.5, zorder=5, ax=ax)
-    cbar = ax.contourf(X_siatka, Y_siatka, Z_siatka, cmap='YlGnBu', levels=np.arange(0, 100, 2), extend='min')
+    cbar = ax.contourf(X_siatka, Y_siatka, Z_siatka, cmap='YlGnBu', levels=np.arange(0, 100, 10))
     cax = fig.add_axes([0.93, 0.134, 0.02, 0.72])
     colorbar = plt.colorbar(cbar, cax=cax, orientation='vertical')
 
