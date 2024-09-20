@@ -200,7 +200,7 @@ def main():
                 image, image_date, buffer = get_image(start_date, end_date, coords, buffer_radius)
 
                 # Obliczanie NDVI i NDWI dla wybranego obrazu
-                ndvi_image = image.normalizedDifference(['B5', 'B4']).rename('NDVI').clip(buffer)
+                ndvi_image = image.normalizedDifference(['B8', 'B4']).rename('NDVI').clip(buffer)
                 ndwi_image = image.normalizedDifference(['B3', 'B8']).rename('NDWI').clip(buffer)
 
                 # Stworzenie warstw do mapy
