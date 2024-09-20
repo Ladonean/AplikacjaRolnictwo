@@ -327,7 +327,7 @@ def main():
                     NDWI oblicza się przy użyciu obrazów satelitarnych, które rejestrują zarówno bliską podczerwień (NIR), jak i długości fal zielonych (G).
                      """)
             
-        with st.container():
+    with st.container():
         st.markdown('<h2 id="samouczek">Samouczek</h2>', unsafe_allow_html=True)
         st.write(""" Po wybraniu adresu i interesującej daty należy nacisnąć przycisk Aktualizuj Mapę.
                      """)
