@@ -240,10 +240,9 @@ def main():
                         'palette': [
                             'red',
                             'yellow',
-                            'lightyellow',
                             'white',
-                            'blue',
-                            'darkblue'
+                            'blue'
+                            'blue'
                         ]
                     },
                     name="NDWI"
