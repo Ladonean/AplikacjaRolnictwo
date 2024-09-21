@@ -212,7 +212,7 @@ def main():
 
                 # Obliczanie NDVI i NDWI dla wybranego obrazu
                 ndvi_image = image.normalizedDifference(['B8', 'B4']).rename('NDVI').clip(buffer)
-                ndwi_image = image.normalizedDifference(['B3', 'B8']).rename('NDWI').clip(buffer)
+                ndwi_image = image.normalizedDifference(['B8', 'B12']).rename('NDWI').clip(buffer)
 
                 # Stworzenie warstw do mapy
                 ndvi_map_id_dict = geemap.ee_tile_layer(
@@ -265,7 +265,7 @@ def main():
 
         # Wyświetlanie mapy ze stanu sesji
         if 'map' in st.session_state:
-            st_folium(st.session_state['map'], width=400, height=400)
+            st_folium(st.session_state['map'], width=800, height=800)
         else:
             st.write("Nie udało się zlokalizować adresu.")
 
