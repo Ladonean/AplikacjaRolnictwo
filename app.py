@@ -265,7 +265,7 @@ def main():
 
         # Wyświetlanie mapy ze stanu sesji
         if 'map' in st.session_state:
-            st_folium(st.session_state['map'], width=800, height=800)
+            st_folium(st.session_state['map'], width=1600, height=1000)
         else:
             st.write("Nie udało się zlokalizować adresu.")
 
