@@ -212,7 +212,7 @@ def main():
 
                 # Obliczanie NDVI i NDWI dla wybranego obrazu
                 ndvi_image = image.normalizedDifference(['B8', 'B4']).rename('NDVI').clip(buffer)
-                ndwi_image = image.normalizedDifference(['B8', 'B12']).rename('NDWI').clip(buffer)
+                ndwi_image = image.normalizedDifference(['B3', 'B8']).rename('NDWI').clip(buffer)
 
                 # Stworzenie warstw do mapy
                 ndvi_map_id_dict = geemap.ee_tile_layer(
@@ -235,7 +235,7 @@ def main():
                 ndwi_map_id_dict = geemap.ee_tile_layer(
                     ndwi_image,
                     vis_params={
-                        'min': 0,
+                        'min': -1,
                         'max': 1,
                         'palette': [
                             'red',
