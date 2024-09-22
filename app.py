@@ -284,7 +284,7 @@ def main():
         location_data = wczytaj_stacje(stacje_url)
 
 
-        opady_url = f'https://raw.githubusercontent.com/Ladonean/FigDetect/main/o_d_{end_date.strftime("%m")}_{end_date.strftime("%Y")}.csv'
+        opady_url = f'https://raw.githubusercontent.com/Ladonean/FigDetect/main/opady/o_d_{end_date.strftime("%m")}_{end_date.strftime("%Y")}.csv'
         rain_data = wczytaj_csv(opady_url)
         if rain_data is not None:
 
