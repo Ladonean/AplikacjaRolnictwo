@@ -197,7 +197,7 @@ def main():
     with st.container():
 
         st.markdown('<h2 id="mapa">Mapa</h2>', unsafe_allow_html=True)
-        address = st.text_input("Wpisz adres:", "Czaple, Kartuzy")
+        address = st.text_input("Wpisz adres:", "Fordon, Bydgoszcz")
         coords = geocode_address(address)
         
         buffer_radius = st.slider('Wybierz promień buffera (w metrach):', min_value=100, max_value=5000, value=1000, step=100)
@@ -270,11 +270,11 @@ def main():
                         # Eksport mapy
         if st.button("Eksportuj mapę"):
                     m = st.session_state['map']
-                    m.save("Mapa_123.html")
+                    m.save(f"{end_date.strftime("%m")}-{end_date.strftime("%Y")} {address}")
                     st.success(f"Mapa została zapisana {end_date.strftime("%m")}-{end_date.strftime("%Y")} {address}")
-                    with open("Mapa_123.html", "r", encoding="utf-8") as file:
+                    with open(f"{end_date.strftime("%m")}-{end_date.strftime("%Y")} {address}", "r", encoding="utf-8") as file:
                         html_data = file.read()
-                        st.download_button(label="Pobierz mapę", data=html_data, file_name="Mapa_123.html", mime="text/html")
+                        st.download_button(label="Pobierz mapę", data=html_data, file_name=f"{end_date.strftime("%m")}-{end_date.strftime("%Y")} {address}", mime="text/html")
 
 
 
