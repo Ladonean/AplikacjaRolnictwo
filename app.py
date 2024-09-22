@@ -330,13 +330,12 @@ Wskaźnik ten jest jednak wrażliwy na tereny zurbanizowane, co może prowadzić
             
     with st.container():
         st.markdown('<h2 id="samouczek">Samouczek</h2>', unsafe_allow_html=True)
-        st.write(""" 1. Wybierz interesującą Cię datę, pamiętaj jednak, że wynik to reprezentacja danego miesiąca, a nie dnia.
-                     2. Wpisz interesujący Cię adres, w przypadku chęci doprecyzowania miejsca patrz punkt 6.
-                     3. Ustal promień zbierania danych (wyrażony w metrach) za pomocą suwaka.
-                     4. Klikknij przycisk aktualizuj mapę.
-                     5. Jeśli miejsce nie spełnia twoich oczekiwań, możesz kliknąć w interesującym Cię punkcie na mapie i skopiować współrzędne, a następnie wkleić je do paska "Wpisz adres:" i zaktualizować mapę.
-                     6. Jeśli jesteś usatysfakcjonowany wynikiem kliknij eksportuj mapę, a następnie pobierz mapę (nazwa to adres + data).
-                     """)
+        st.write(""" 1. Wybierz interesującą Cię datę, pamiętaj jednak, że wynik to reprezentacja danego miesiąca, a nie dnia.""")
+        st.write("""2. Wpisz interesujący Cię adres, w przypadku chęci doprecyzowania miejsca patrz punkt 5.""")
+        st.write("""3. Ustal promień zbierania danych (wyrażony w metrach) za pomocą suwaka.""")
+        st.write("""4. Klikknij przycisk aktualizuj mapę.""")
+        st.write("""5. Jeśli miejsce nie spełnia twoich oczekiwań, możesz kliknąć w interesującym Cię punkcie na mapie i skopiować współrzędne, a następnie wkleić je do paska "Wpisz adres:" i zaktualizować mapę.""")
+        st.write("""6. Jeśli jesteś usatysfakcjonowany wynikiem kliknij eksportuj mapę, a następnie pobierz mapę (nazwa to adres + data).""")
 
 
 # Uruchomienie aplikacji
