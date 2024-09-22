@@ -271,7 +271,7 @@ def main():
         if st.button("Eksportuj mapę"):
                     m = st.session_state['map']
                     m.save("Mapa_123.html")
-                    st.success("Mapa została zapisana jako Mapa_123.html")
+                    st.success(f"Mapa została zapisana {end_date.strftime("%m")}-{end_date.strftime("%Y")} {address}")
                     with open("Mapa_123.html", "r", encoding="utf-8") as file:
                         html_data = file.read()
                         st.download_button(label="Pobierz mapę", data=html_data, file_name="Mapa_123.html", mime="text/html")
@@ -335,7 +335,7 @@ Wskaźnik ten jest jednak wrażliwy na tereny zurbanizowane, co może prowadzić
                      3. Ustal promień zbierania danych (wyrażony w metrach) za pomocą suwaka.
                      4. Klikknij przycisk aktualizuj mapę.
                      5. Jeśli miejsce nie spełnia twoich oczekiwań, możesz kliknąć w interesującym Cię punkcie na mapie i skopiować współrzędne, a następnie wkleić je do paska "Wpisz adres:" i zaktualizować mapę.
-                     6. 
+                     6. Jeśli jesteś usatysfakcjonowany wynikiem kliknij eksportuj mapę, a następnie pobierz mapę (nazwa to adres + data).
                      """)
 
 
