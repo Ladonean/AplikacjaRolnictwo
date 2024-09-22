@@ -292,7 +292,9 @@ def main():
 
             st.dataframe(merged_data)
             max_value = merged_data['Opady'].astype(float).max()
+            max_value = round(max_value, 1) 
             min_value = merged_data['Opady'].astype(float).min()
+            min_value = round(min_value, 2) 
             
             st.write(f"Maksymalna ilość opadów: {max_value}")
             st.write(f"Minimalna ilość opadów: {min_value}")
