@@ -22,10 +22,10 @@ import re
 from matplotlib.colors import LinearSegmentedColormap
 
 # st.set_page_config(
-#     page_title="Aplikacja Rolnictwo",
+#     page_title="TerraWatcher",
 #     initial_sidebar_state="expanded",
 #     menu_items={
-#         'About': "https://github.com/Ladonean/Nauka/tree/main"
+#         'About': "https://github.com/Ladonean/AplikacjaRolnictwo"
 #     }
 # )
 
@@ -69,7 +69,6 @@ def geocode_address(address):
         return None
 
 def get_image(start_date, end_date, coords, buffer_radius):
-    # Pobieranie kolekcji obrazów Landsat 8 (Collection 2 Level 2)
 
     point = ee.Geometry.Point([coords[1], coords[0]])
     buffer = point.buffer(buffer_radius)
@@ -77,10 +76,9 @@ def get_image(start_date, end_date, coords, buffer_radius):
         .filterDate(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')) \
         .filterBounds(buffer)
     
-    # Zamiast median(), wybierz pierwszy obraz w kolekcji
     image = collection.median()
     
-    # Pobranie daty obrazu
+
     image_date = image.get('system:time_start').getInfo()
     
     if image_date is not None:
@@ -173,7 +171,7 @@ def plot_wynik(path_shp, Wynik, title):
 def main():
 
     with st.sidebar:
-        st.title("Aplikacja Rolnictwo")
+        st.title("TerraWatcher")
         st.subheader("Menu:")
         st.markdown(
             """
@@ -306,36 +304,36 @@ def main():
             st.pyplot(fig)
 
     with st.container():
-        st.markdown('<h2 id="informacje">Informacje</h2>', unsafe_allow_html=True)
-        st.write(""" Po wybraniu adresu i interesującej daty należy nacisnąć przycisk Aktualizuj Mapę.
-                     """)
-        
+        st.markdown('<h2 id="informacje">Informacje</h2>', unsafe_allow_html=True)    
         if st.button("NDVI - Normalized Difference Vegetation Index"):
             st.write("""
-                    Znormalizowany różnicowy wskaźnik wegetacji to wskaźnik stosowany w pomiarach teledetekcyjnych, pozwalający określić stan rozwojowy oraz kondycję roślinności. NDVI pozwala zdefiniować i zwizualizować obszary porośnięte roślinnością, a także wykryć nieprawidłowe zmiany w procesie wzrostu roślin.
-                    Jego wartości skorelowane są z ilością biomasy i zawartością chlorofilu. Do obliczenia wskaźnika NDVI wykorzystuje się wartości odbicia w zakresie czerwonym światła widzialnego oraz bliskiej podczerwieni. 
-                    Wartości wskaźnika NDVI zawierają się w zakresie od -1 do 1. Wartości wskaźnika NDVI zbliżone do -1 występują na obszarach pokrytych wodą. Wartości z zakresu od -0,1 do 0,1 występują na obszarach odkrytej gleby bez pokrywy roślinnej. 
-                    Wartości wskaźnika NDVI z zakresu od 0,2 do 0,4 są charakterystyczne dla obszarów pokrytych roślinnością będącą w początkowej fazie rozwoju lub słabej kondycji. 
-                    Wartości wskaźnika NDVI >0.6 uznawane są za wskaźnik zdrowej roślinności o wysokiej witalności. 
-                    Natomiast NDVI zbliżone do 1 są charakterystyczne dla roślin będących w najwyższej fazie rozwoju, w bardzo dobrym stanie zdrowotnym
+Znormalizowany różnicowy wskaźnik wegetacji (NDVI) to miara stosowana w teledetekcji, pozwalająca ocenić stan rozwoju oraz kondycję roślinności. NDVI umożliwia identyfikację obszarów pokrytych roślinnością oraz wykrywanie nieprawidłowości w jej wzroście. Wartości NDVI są skorelowane z ilością biomasy oraz zawartością chlorofilu.
+
+Wskaźnik NDVI oblicza się na podstawie wartości odbicia w zakresie światła czerwonego oraz bliskiej podczerwieni. Jego wartości mieszczą się w przedziale od -1 do 1. Wartości bliskie -1 są charakterystyczne dla obszarów wodnych, natomiast wartości z zakresu od -0,1 do 0,1 dotyczą terenów bez pokrywy roślinnej, jak odkryta gleba.
+
+Dla roślinności w początkowej fazie rozwoju lub o słabej kondycji charakterystyczne są wartości NDVI w przedziale 0,2–0,4. Wskaźnik NDVI >0,6 oznacza zdrową roślinność o wysokiej witalności, natomiast wartości zbliżone do 1 wskazują na rośliny w szczytowej fazie rozwoju, w bardzo dobrej kondycji zdrowotnej.
                     """)
             image = Image.open("NDVI.png")
             st.image(image, caption="Źródło własne", use_column_width=True)
         
         if st.button("NDWI - Normalized Difference Water Index"):
             st.write("""
-                    Wskaźnik NDWI służy do monitorowania zmian związanych z zawartością wody w zbiornikach wodnych. 
-                    Ponieważ zbiorniki wodne silnie absorbują światło w widzialnym i podczerwonym spektrum elektromagnetycznym, NDWI wykorzystuje pasma zielone i bliskiej podczerwieni, aby wyodrębnić zbiorniki wodne. 
-                    Wskaźnik ten jest czuły na tereny zurbanizowane, co może prowadzić do przeszacowania obszarów wodnych.
-                    NDWI oblicza się przy użyciu obrazów satelitarnych, które rejestrują zarówno bliską podczerwień (NIR), jak i długości fal zielonych (G). Do oceny stanu środowiska przydatne mogą być również wskaźniki wodne, które mogą wskazać przyczynę gorszej kondycji roślinności wynikającą z deficytu lub nadmiaru wody. 
-                    Do najbardziej popularnych należy wskaźnik NDWI, czyli znormalizowany różnicowy wskaźnik wody (Normalized Difference Water Index; Gao 19964) informujący o stanie (zmianach) zawartości wody (absorpcja promieniowania SWIR) i miękiszu gąbczastego w koronach roślinnych (NIR).
+
+Wskaźnik NDWI (Normalized Difference Water Index) służy do monitorowania zmian w zawartości wody w zbiornikach wodnych. Zbiorniki wodne silnie absorbują światło w widzialnym i podczerwonym spektrum elektromagnetycznym, dlatego NDWI wykorzystuje pasma zielone i bliskiej podczerwieni, aby dokładnie wyodrębnić obszary wodne.
+
+Wskaźnik ten jest jednak wrażliwy na tereny zurbanizowane, co może prowadzić do przeszacowania obszarów wodnych. NDWI oblicza się na podstawie obrazów satelitarnych rejestrujących bliską podczerwień (NIR) oraz długości fal zielonych (G). Wskaźniki wodne, takie jak NDWI, mogą być przydatne w ocenie stanu środowiska, wskazując na problemy roślinności wynikające z deficytu lub nadmiaru wody.
                      """)
             image = Image.open("NDWI.png")
             st.image(image, caption="Źródło własne", use_column_width=True)
             
     with st.container():
         st.markdown('<h2 id="samouczek">Samouczek</h2>', unsafe_allow_html=True)
-        st.write(""" Po wybraniu adresu i interesującej daty należy nacisnąć przycisk Aktualizuj Mapę.
+        st.write(""" 1. Wybierz interesującą Cię datę, pamiętaj jednak, że wynik to reprezentacja danego miesiąca, a nie dnia.
+                     2. Wpisz interesujący Cię adres, w przypadku chęci doprecyzowania miejsca patrz punkt 6.
+                     3. Ustal promień zbierania danych (wyrażony w metrach) za pomocą suwaka.
+                     4. Klikknij przycisk aktualizuj mapę.
+                     5. Jeśli miejsce nie spełnia twoich oczekiwań, możesz kliknąć w interesującym Cię punkcie na mapie i skopiować współrzędne, a następnie wkleić je do paska "Wpisz adres:" i zaktualizować mapę.
+                     6. 
                      """)
 
 
