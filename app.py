@@ -270,11 +270,11 @@ def main():
                         # Eksport mapy
         if st.button("Eksportuj mapę"):
                     m = st.session_state['map']
-                    m.save(f"{end_date.strftime("%m")}-{end_date.strftime("%Y")} {address}")
-                    st.success(f"Mapa została zapisana {end_date.strftime("%m")}-{end_date.strftime("%Y")} {address}")
-                    with open(f"{end_date.strftime("%m")}-{end_date.strftime("%Y")} {address}", "r", encoding="utf-8") as file:
+                    m.save(f"{end_date.strftime("%m")}-{end_date.strftime("%Y")} {address}.html")
+                    st.success(f"Mapa została zapisana {end_date.strftime("%m")}-{end_date.strftime("%Y")} {address}.html")
+                    with open(f"{end_date.strftime("%m")}-{end_date.strftime("%Y")} {address}.html", "r", encoding="utf-8") as file:
                         html_data = file.read()
-                        st.download_button(label="Pobierz mapę", data=html_data, file_name=f"{end_date.strftime("%m")}-{end_date.strftime("%Y")} {address}", mime="text/html")
+                        st.download_button(label="Pobierz mapę", data=html_data, file_name=f"{end_date.strftime("%m")}-{end_date.strftime("%Y")} {address}.html", mime="text/html")
 
 
 
