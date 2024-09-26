@@ -184,7 +184,7 @@ def main():
 
     with st.container():
         st.title("TerraWatcher")
-        st.markdown("Aplikacja służąca do sprawdzania wskaźnika NDVI i NDWI, a także miesięcznych opadów na obszarze Polski")
+        st.markdown("Aplikacja wspierająca monitorowanie środowiska poprzez dostarczaniedanych opadowych oraz teledetekcyjnych pomagających w ocenie zdrowia roślinności izarządzaniu zasobami wodnymi z wykorzystaniem danych satelitarnych Sentinel 2.")
 
     with st.container():
         date = st.date_input("Wybierz datę", value=datetime.today())
