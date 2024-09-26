@@ -183,7 +183,7 @@ def main():
             """)
 
     with st.container():
-        st.title("Aplikacja Rolnictwo")
+        st.title("TerraWatcher")
         st.markdown("Aplikacja służąca do sprawdzania wskaźnika NDVI i NDWI, a także miesięcznych opadów na obszarze Polski")
 
     with st.container():
